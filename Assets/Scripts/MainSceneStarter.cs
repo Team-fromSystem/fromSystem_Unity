@@ -86,7 +86,7 @@ public class MainSceneStarter : MonoBehaviour
 
     void OnDisable()
     {
-        onTracked="OnDisable";
+        onTracked = "OnDisable";
         // トラッキングされた画像が変更された際のイベントを解除
         aRTrackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
     }
@@ -101,16 +101,23 @@ public class MainSceneStarter : MonoBehaviour
             // マーカー名を取得
             var name = trackedImage.referenceImage.name;
             // マーカー名とプレハブのマッピングからプレハブを取得
-            var modelID = imageTrackingData.imageTrackingManagers.Find(x => $"{x.imageID}" == name)?.modelID;
-            var prefab = modelData.modelManagers.Find(x => x.modelID == modelID)?.model;
+            var model = imageTrackingData.imageTrackingManagers.Find(x => $"{x.imageID}" == name);
+            var prefab = modelData.modelManagers.Find(x => x.modelID == model.modelID)?.model;
             if (prefab != null)
             {
                 // ARTrackedImageのTransformの位置を少し上に調整
+                PositionManager positionData = model.modelPosition;
                 var pos = trackedImage.transform.position;
-                pos.y += 0.02f;
-                // 180度回転し調整
+                pos.x += positionData.X;
+                pos.y += positionData.Y;
+                pos.z += positionData.Z;
+
+                //画像を基準にモデルを配置
+                RotationManager rotationData = model.modelRotation;
                 var rote = trackedImage.transform.eulerAngles;
-                rote.y += 180;
+                rote.x += rotationData.X;
+                rote.y += rotationData.Y;
+                rote.z += rotationData.Z;
 
                 var instance = Instantiate(
                     prefab,
@@ -118,6 +125,8 @@ public class MainSceneStarter : MonoBehaviour
                     Quaternion.Euler(rote),
                     trackedImage.transform
                 );
+                var size = model.modelSize;
+                instance.transform.localScale = Vector3.one * size;
             }
         }
         // 更新された画像

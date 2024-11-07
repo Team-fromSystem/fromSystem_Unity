@@ -307,7 +307,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -422,7 +422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6267f7f9f4a474ea0a4ec89a57c4dcd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: "/Users/okusan/Downloads/\u914D\u4FE1\u30E2\u30C7\u30EB/\u60E3\u83DC\u30C8\u3099\u30E9\u30B3\u3099\u30F3_VRM.vrm"
+  path: /Users/okusan/Downloads/ramina-ver4.0.vrm
+  gameObject: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

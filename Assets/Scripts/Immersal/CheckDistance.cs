@@ -12,7 +12,7 @@ public class CheckDistance : MonoBehaviour
     [SerializeField] private double distance;
     [SerializeField] private double compensationRadius;
 
-    [SerializeField] private Canvas popUp;
+    [SerializeField] private GameObject popUp;
     [SerializeField] private ImmersalData immersalData;
 
     public double Distance
@@ -72,7 +72,6 @@ public class CheckDistance : MonoBehaviour
 
     void Awake()
     {
-        popUp.enabled = false;
         targetLocation = new LocationManager(deg2rad(immersalData.chosenImmersalManager.location.latitude), deg2rad(immersalData.chosenImmersalManager.location.longitude), 0.0);
     }
 
@@ -88,14 +87,14 @@ public class CheckDistance : MonoBehaviour
         distance = Location_Distance(currentLocation, targetLocation);
         if (distance > immersalData.chosenImmersalManager.radius + compensationRadius && inTargetLocation)
         {
-            popUp.enabled = true;
+            popUp.SetActive(true);
             inTargetLocation = false;
             locationState = $"distance:{distance}";
             return;
         }
         if (distance < immersalData.chosenImmersalManager.radius && !inTargetLocation)
         {
-            popUp.enabled=false;   
+            popUp.SetActive(false);   
             inTargetLocation = true;
         }
         locationState = $"distance:{distance}";

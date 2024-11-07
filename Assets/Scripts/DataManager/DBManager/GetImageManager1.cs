@@ -5,12 +5,16 @@ using UnityEngine;
 public class GetImageManager
 {
     public int imageID;
-    public string fileLink;
-    public string filePath;
+    public int hostID;
+    public string imageURL;
+    public string imageName;
+    public string fileFormat;
 
-    public GetImageManager(int imageID,string fileLink,string filePath){
+    public GetImageManager(int imageID,int hostID,string imageURL,string imageName,string fileFormat){
         this.imageID=imageID;
-        this.fileLink=fileLink;
-        this.filePath=filePath;
+        this.hostID=hostID;
+        this.imageURL=imageURL;
+        this.imageName=imageName;
+        this.fileFormat=fileFormat;
     }
 }

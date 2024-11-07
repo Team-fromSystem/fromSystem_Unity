@@ -1,66 +1,279 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-// using Firebase.Extensions;
-// using Firebase.Firestore;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Firebase.Extensions;
+using Firebase.Firestore;
+using System;
+using System.Linq;
 
-// public class FirebaseController : MonoBehaviour
-// {
-//     private bool setData = false;
-//     public string dataSt;
-//     public void GetFirestoreData()
-//     {
-//         //Firestoreを使えるようにする
-//         var db = FirebaseFirestore.DefaultInstance;
-//         DocumentReference docRef = db.Collection("events").Document("9Kwe3wUTRAeHxVRP7B4N");
-//         // CollectionReference imageColRef = docRef.Collection("Image");
-//         Query imageColQuery = docRef.Collection("Image");
-//         imageColQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
-//         {
-//             if (task.IsCompleted)
-//             {
-//                 QuerySnapshot imageColQuerySnapshot = task.Result;
-//                 foreach (DocumentSnapshot documentSnapshot in imageColQuerySnapshot.Documents)
-//                 {
-//                     Debug.Log(string.Format("Document data for {0} document:", documentSnapshot.Id));
-//                     Dictionary<string, object> city = documentSnapshot.ToDictionary();
-//                     foreach (KeyValuePair<string, object> pair in city)
-//                     {
-//                         Debug.Log(string.Format("{0}: {1}", pair.Key, pair.Value));
-//                         if ($"{pair.Key}" == "imageID")
-//                         {
-//                             dataSt = string.Format("{0}: {1}", pair.Key, pair.Value);
-//                         }
-//                     }
+public class FirebaseController : MonoBehaviour
+{
+    public string dataSt;
 
-//                     // Newline to separate entries
-//                     Debug.Log("");
-//                 }
-//             }
-//             else
-//             {
-//                 Debug.Log("サブコレクションの取得に失敗しました。");
-//             }
-//         });
-//         // docRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
-//         // {
-//         //     DocumentSnapshot snapshot = task.Result;
-//         //     if (snapshot.Exists)
-//         //     {
-//         //         Debug.Log(string.Format("Document data for {0} document:", snapshot.Id));
-//         //         Dictionary<string, object> city = snapshot.ToDictionary();
-//         //         foreach (KeyValuePair<string, object> pair in city)
-//         //         {
-//         //             Debug.Log(string.Format("{0}: {1}", pair.Key, pair.Value));
-//         //             if($"{pair.Key}"=="close"){
-//         //                 dataSt=string.Format("{0}: {1}", pair.Key, pair.Value);
-//         //             }
-//         //         }
-//         //     }
-//         //     else
-//         //     {
-//         //         Debug.Log(string.Format("Document {0} does not exist!", snapshot.Id));
-//         //     }
-//         // });
-//     }
-// }
+    [SerializeField] private FirebaseFirestore db;
+
+    [SerializeField] private List<ImageTrackingManager> imageTrackingList;
+
+    private void Awake()
+    {
+        db = FirebaseFirestore.DefaultInstance;
+    }
+    public List<ImageTrackingManager> GetImageTrackingData()
+    {
+        List<ImageTrackingManager> allData = new List<ImageTrackingManager>();
+        DocumentReference docRef = CreateDocRef("9Kwe3wUTRAeHxVRP7B4N", CreateColRef("events"));
+        CollectionReference imageColRef = CreateColRef("Image", docRef);
+        imageColRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                QuerySnapshot imageColQuerySnapshot = task.Result;
+                foreach (DocumentSnapshot documentSnapshot in imageColQuerySnapshot.Documents)
+                {
+                    ImageTrackingManager imageTrackingData = ConvertImageTracking(documentSnapshot);
+                    allData.Add(imageTrackingData);
+                }
+                Debug.Log($"{allData.Count}");
+            }
+            else
+            {
+                Debug.Log("サブコレクションの取得に失敗しました。");
+            }
+        });
+        return allData;
+    }
+    private ImageTrackingManager ConvertImageTracking(DocumentSnapshot documentSnapshot)
+    {
+        Debug.Log(string.Format("Document data for {0} document:", documentSnapshot.Id));
+        Dictionary<string, object> oneDoc = documentSnapshot.ToDictionary();
+        int imageID = (int)Convert.ChangeType(oneDoc["imageID"], typeof(int));
+        int modelID = (int)Convert.ChangeType(oneDoc["modelID"], typeof(int));
+        float modelSize = (float)Convert.ChangeType(oneDoc["modelSize"], typeof(float));
+        PositionManager modelPosition = ConvertPosition(oneDoc["modelPosition"]);
+        RotationManager modelROtation = ConvertRotation(oneDoc["modelRotation"]);
+        return new ImageTrackingManager(imageID, modelID, modelSize, modelPosition, modelROtation);
+    }
+    public PlaneTrackingManager GerPlaneTrackingData()
+    {
+        PlaneTrackingManager allData = new PlaneTrackingManager(new List<int>(), new List<int>());
+        DocumentReference docRef = CreateDocRef("9Kwe3wUTRAeHxVRP7B4N", CreateColRef("events"));
+        CollectionReference planeColRef = CreateColRef("Plane", docRef);
+        planeColRef.Limit(1).GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                QuerySnapshot planeColQuerySnapshot = task.Result;
+                foreach (DocumentSnapshot documentSnapshot in planeColQuerySnapshot.Documents)
+                {
+                    PlaneTrackingManager planeTrackingData = ConvertPlaneTracking(documentSnapshot);
+                    allData = planeTrackingData;
+                }
+                Debug.Log($"{allData.mainModelID[0]}");
+            }
+            else
+            {
+                Debug.Log("サブコレクションの取得に失敗しました。");
+            }
+        });
+        return allData;
+    }
+    private PlaneTrackingManager ConvertPlaneTracking(DocumentSnapshot documentSnapshot)
+    {
+        Debug.Log(string.Format("Document data for {0} document:", documentSnapshot.Id));
+        Dictionary<string, object> oneDoc = documentSnapshot.ToDictionary();
+        List<object> mainModelIDAsObject = (List<object>)Convert.ChangeType(oneDoc["mainModelID"], typeof(List<object>));
+        List<int> mainModelID = mainModelIDAsObject.Select(obj => Convert.ToInt32(obj)).ToList();
+        List<object> decorationModelIDAsObject = (List<object>)Convert.ChangeType(oneDoc["decorationModelID"], typeof(List<object>));
+        List<int> decorationModelID = decorationModelIDAsObject.Select(obj => Convert.ToInt32(obj)).ToList();
+        return new PlaneTrackingManager(mainModelID, decorationModelID);
+    }
+
+    public List<ImmersalManager> GetImmersalData()
+    {
+        List<ImmersalManager> allData = new List<ImmersalManager>();
+        DocumentReference docRef = CreateDocRef("9Kwe3wUTRAeHxVRP7B4N", CreateColRef("events"));
+        CollectionReference imageColRef = CreateColRef("Immersal", docRef);
+        imageColRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                QuerySnapshot immersalColQuerySnapshot = task.Result;
+                foreach (DocumentSnapshot documentSnapshot in immersalColQuerySnapshot.Documents)
+                {
+                    ImmersalManager immersalData = ConvertImmersal(documentSnapshot);
+                    allData.Add(immersalData);
+                }
+                Debug.Log($"{allData.Count}");
+            }
+            else
+            {
+                Debug.Log("サブコレクションの取得に失敗しました。");
+            }
+        });
+        return allData;
+    }
+    private ImmersalManager ConvertImmersal(DocumentSnapshot documentSnapshot)
+    {
+        Debug.Log(string.Format("Document data for {0} document:", documentSnapshot.Id));
+        Dictionary<string, object> oneDoc = documentSnapshot.ToDictionary();
+        LocationManager location = ConvertLocation(oneDoc["location"]);
+        float radius = (float)Convert.ChangeType(oneDoc["radius"], typeof(float));
+        List<ImmersalMapManager> immersalMap = ConvertImmersalMap(oneDoc["immersalMapManager"]);
+        List<ImmersalModelManager> immersalModel = ConvertImmersalModel(oneDoc["immersalModelManager"]);
+        ImmersalManager immersalManager = new ImmersalManager(location, radius, immersalMap, immersalModel);
+        return immersalManager;
+    }
+    private List<ImmersalMapManager> ConvertImmersalMap(object oneDocObject)
+    {
+        List<object> immersalMapAsList = (List<object>)Convert.ChangeType(oneDocObject, typeof(List<object>));
+        List<ImmersalMapManager> allData = new List<ImmersalMapManager>();
+        foreach (var one in immersalMapAsList)
+        {
+            Dictionary<string, object> immersalMapAsDic = (Dictionary<string, object>)Convert.ChangeType(one, typeof(Dictionary<string, object>));
+            int mapID = (int)Convert.ChangeType(immersalMapAsDic["mapID"], typeof(int));
+            PositionManager mapPosition = ConvertPosition(immersalMapAsDic["mapPosition"]);
+            RotationManager mapRotation = ConvertRotation(immersalMapAsDic["mapRotation"]);
+            ImmersalMapManager immersalMapManager = new ImmersalMapManager(mapID, mapPosition, mapRotation);
+            allData.Add(immersalMapManager);
+        }
+        return allData;
+    }
+    private List<ImmersalModelManager> ConvertImmersalModel(object oneDocObject)
+    {
+        List<object> immersalModelAsList = (List<object>)Convert.ChangeType(oneDocObject, typeof(List<object>));
+        List<ImmersalModelManager> allData = new List<ImmersalModelManager>();
+        foreach (var one in immersalModelAsList)
+        {
+            Dictionary<string, object> immersalModelAsDic = (Dictionary<string, object>)Convert.ChangeType(one, typeof(Dictionary<string, object>));
+            int modelID = (int)Convert.ChangeType(immersalModelAsDic["modelID"], typeof(int));
+            float modelSize = (float)Convert.ChangeType(immersalModelAsDic["modelSize"], typeof(float));
+            PositionManager modelPosition = ConvertPosition(immersalModelAsDic["modelPosition"]);
+            RotationManager modelRotation = ConvertRotation(immersalModelAsDic["modelRotation"]);
+            ImmersalModelManager immersalModelManager = new ImmersalModelManager(modelID, modelSize, modelPosition, modelRotation);
+            allData.Add(immersalModelManager);
+        }
+        return allData;
+    }
+
+    private LocationManager ConvertLocation(object oneDocObject)
+    {
+        Dictionary<string, object> locationDataAsDic = (Dictionary<string, object>)Convert.ChangeType(oneDocObject, typeof(Dictionary<string, object>));
+        float latitude = (float)Convert.ChangeType(locationDataAsDic["latitude"], typeof(float));
+        float longitude = (float)Convert.ChangeType(locationDataAsDic["longitude"], typeof(float));
+        LocationManager locationManager = new LocationManager(latitude, longitude, 0.0);
+        return locationManager;
+    }
+
+    public List<GetImageManager> GetImageData()
+    {
+        List<GetImageManager> allData = new List<GetImageManager>();
+        int[] imageIDAsIntArray = { 1 };
+        object[] imageIDAsObjArray = imageIDAsIntArray.Cast<object>().ToArray();
+        Query imageColQuery = CreateColRef("images").WhereIn("imageID", imageIDAsObjArray);
+        imageColQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                QuerySnapshot getImageColQuerySnapshot = task.Result;
+                foreach (DocumentSnapshot documentSnapshot in getImageColQuerySnapshot.Documents)
+                {
+                    GetImageManager getImageData = ConvertGetImage(documentSnapshot);
+                    allData.Add(getImageData);
+                }
+                Debug.Log($"{allData.Count}");
+            }
+            else
+            {
+                Debug.Log("コレクションの取得に失敗しました。");
+            }
+        });
+        return allData;
+    }
+
+    private GetImageManager ConvertGetImage(DocumentSnapshot documentSnapshot)
+    {
+        Debug.Log(string.Format("Document data for {0} document:", documentSnapshot.Id));
+        Dictionary<string, object> oneDoc = documentSnapshot.ToDictionary();
+        int imageID = (int)Convert.ChangeType(oneDoc["imageID"], typeof(int));
+        int hostID = (int)Convert.ChangeType(oneDoc["hostID"], typeof(int));
+        string imageURL = (string)Convert.ChangeType(oneDoc["imageURL"], typeof(string));
+        string imageName = (string)Convert.ChangeType(oneDoc["imageName"], typeof(string));
+        string fileFormat = (string)Convert.ChangeType(oneDoc["fileFormat"], typeof(string));
+        GetImageManager getImageManager = new GetImageManager(imageID, hostID, imageURL, imageName, fileFormat);
+        return getImageManager;
+    }
+
+    public List<GetModelManager> GetModelData()
+    {
+        List<GetModelManager> allData = new List<GetModelManager>();
+        int[] modelIDAsIntArray = { 1 };
+        object[] modelIDAsObjArray = modelIDAsIntArray.Cast<object>().ToArray();
+        Query modelColQuery = CreateColRef("models").WhereIn("modelID", modelIDAsObjArray);
+        modelColQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                QuerySnapshot getModelColQuerySnapshot = task.Result;
+                foreach (DocumentSnapshot documentSnapshot in getModelColQuerySnapshot.Documents)
+                {
+                    GetModelManager getModelData = ConvertGetModel(documentSnapshot);
+                    allData.Add(getModelData);
+                }
+                Debug.Log($"{allData.Count}");
+            }
+            else
+            {
+                Debug.Log("コレクションの取得に失敗しました。");
+            }
+        });
+        return allData;
+    }
+
+    private GetModelManager ConvertGetModel(DocumentSnapshot documentSnapshot)
+    {
+        Debug.Log(string.Format("Document data for {0} document:", documentSnapshot.Id));
+        Dictionary<string, object> oneDoc = documentSnapshot.ToDictionary();
+        int modelID = (int)Convert.ChangeType(oneDoc["modelID"], typeof(int));
+        int hostID = (int)Convert.ChangeType(oneDoc["hostID"], typeof(int));
+        string modelURL = (string)Convert.ChangeType(oneDoc["modelURL"], typeof(string));
+        string modelName = (string)Convert.ChangeType(oneDoc["modelName"], typeof(string));
+        string fileFormat = (string)Convert.ChangeType(oneDoc["fileFormat"], typeof(string));
+        GetModelManager getModelManager = new GetModelManager(modelID, hostID, modelURL, modelName, fileFormat);
+        return getModelManager;
+    }
+    private CollectionReference CreateColRef(string colName, DocumentReference docRef = null)
+    {
+        if (docRef == null)
+        {
+            return db.Collection(colName);
+        }
+        else
+        {
+            return docRef.Collection(colName);
+        }
+    }
+
+    private DocumentReference CreateDocRef(string docName, CollectionReference colRef)
+    {
+        return colRef.Document(docName);
+    }
+
+    private Query CreateWhereInQuery(string fieldName, string target, CollectionReference colRef)
+    {
+        int[] targetID = Array.ConvertAll(target.Split(","), int.Parse);
+        object[] targetIDAsObjects = targetID.Cast<object>().ToArray();
+        return colRef.WhereIn(fieldName, targetIDAsObjects);
+    }
+    private PositionManager ConvertPosition(object oneDocObject)
+    {
+        Dictionary<string, object> modelPosition = (Dictionary<string, object>)Convert.ChangeType(oneDocObject, typeof(Dictionary<string, object>));
+        PositionManager positionData = new PositionManager((float)Convert.ChangeType(modelPosition["X"], typeof(float)), (float)Convert.ChangeType(modelPosition["Y"], typeof(float)), (float)Convert.ChangeType(modelPosition["Z"], typeof(float)));
+        return positionData;
+    }
+    private RotationManager ConvertRotation(object oneDocObject)
+    {
+        Dictionary<string, object> modelRotation = (Dictionary<string, object>)Convert.ChangeType(oneDocObject, typeof(Dictionary<string, object>));
+        RotationManager rotaionData = new RotationManager((float)Convert.ChangeType(modelRotation["X"], typeof(float)), (float)Convert.ChangeType(modelRotation["Y"], typeof(float)), (float)Convert.ChangeType(modelRotation["Z"], typeof(float)));
+        return rotaionData;
+    }
+}

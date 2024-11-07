@@ -12,4 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ff3e917c83440d9a4f2441653f9c51, type: 3}
   m_Name: New Image Tracking Data
   m_EditorClassIdentifier: 
-  imageTrackingManagers: []
+  imageTrackingManagers:
+  - imageID: 1
+    modelID: 1
+    modelSize: 0.1
+    modelPosition:
+      X: 0
+      Y: 0.5
+      Z: 0
+    modelRotation:
+      X: 0
+      Y: 180
+      Z: 0
+  - imageID: 2
+    modelID: 2
+    modelSize: 0.1
+    modelPosition:
+      X: 0.5
+      Y: 0.1
+      Z: 0
+    modelRotation:
+      X: 0
+      Y: 180
+      Z: 0

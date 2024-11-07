@@ -4,12 +4,16 @@ using UnityEngine;
 public class GetModelManager
 {
     public int modelID;
-    public string fileLink;
-    public string filePath;
+    public int hostID;
+    public string modelURL;
+    public string modelName;
+    public string fileFormat;
 
-    public GetModelManager(int modelID,string fileLink,string filePath){
+    public GetModelManager(int modelID,int hostID,string modelURL,string modelName,string fileFormat){
         this.modelID=modelID;
-        this.fileLink=fileLink;
-        this.filePath=filePath;
+        this.hostID=hostID;
+        this.modelURL=modelURL;
+        this.modelName=modelName;
+        this.fileFormat=fileFormat;
     }
 }

@@ -1000,10 +1000,10 @@ MonoBehaviour:
   modelData: {fileID: 11400000, guid: 5a62169d268fe43468f341552acb83a7, type: 2}
   immersalMocks:
   - location:
-      latitude: 0
-      longitude: 0
+      latitude: 33.702478
+      longitude: 135.4010385
       altitude: 0
-    radius: 0.02
+    radius: 0.1
     immersalMapManager:
     - mapID: 111295
       mapPosition:
@@ -1051,7 +1051,6 @@ MonoBehaviour:
   planeTrackingMock:
     mainModelID: 0300000006000000
     decorationModelID: 0400000005000000
-    backgroundModelID: 01000000
   imageMocks:
   - imageID: 1
     image: {fileID: 2800000, guid: e49910ecd974f42cc9535b97bb3c433f, type: 3}
@@ -1059,16 +1058,22 @@ MonoBehaviour:
     image: {fileID: 2800000, guid: a16b80590a9754e91aa3ac5f4db2a24f, type: 3}
   modelMocks:
   - modelID: 1
+    modelName: Cube1
     model: {fileID: 4532038664921620774, guid: ace2e3f6ac578469f8ad061a0405bab5, type: 3}
   - modelID: 2
+    modelName: Sphere1
     model: {fileID: 3826057803523595519, guid: a421f54ac90334b9fb93a4ac7ef651b7, type: 3}
   - modelID: 3
+    modelName: Cube
     model: {fileID: 1898129886894184065, guid: cf01de066b9ad4ce7b9c79bd9478c1f7, type: 3}
   - modelID: 4
+    modelName: Capsule
     model: {fileID: 3689525849096750569, guid: e09a5fd9f66394e4da92041e7312b76a, type: 3}
   - modelID: 5
+    modelName: Cylinder
     model: {fileID: 8407925402323317476, guid: 58c165a617522427f8524e5d71623d06, type: 3}
   - modelID: 6
+    modelName: Sphere
     model: {fileID: 3386759339556426011, guid: 369d4e1fb90de49edb4fa117ace19aee, type: 3}
   buttonCanvas: {fileID: 499212605}
   debugText: {fileID: 301683216}
@@ -1086,6 +1091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataSt: 
+  imageTrackingList: []
 --- !u!1 &2117155026
 GameObject:
   m_ObjectHideFlags: 0

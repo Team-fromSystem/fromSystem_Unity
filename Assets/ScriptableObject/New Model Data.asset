@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b494e2e6574543e5856164076325f84, type: 3}
   m_Name: New Model Data
   m_EditorClassIdentifier: 
-  modelManagers: []
+  modelManagers:
+  - modelID: 1
+    modelName: aaa
+    model: {fileID: 4532038664921620774, guid: ace2e3f6ac578469f8ad061a0405bab5, type: 3}
+  - modelID: 2
+    modelName: bbb
+    model: {fileID: 3826057803523595519, guid: a421f54ac90334b9fb93a4ac7ef651b7, type: 3}
+  - modelID: 3
+    modelName: ccc
+    model: {fileID: 3826057803523595519, guid: a421f54ac90334b9fb93a4ac7ef651b7, type: 3}
+  - modelID: 4
+    modelName: ddd
+    model: {fileID: 3826057803523595519, guid: a421f54ac90334b9fb93a4ac7ef651b7, type: 3}

@@ -14,15 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   immersalManagers: []
   chosenImmersalManager:
-    mapID: 
     location:
       latitude: 0
       longitude: 0
       altitude: 0
-    radius: 0
-    modelID: 
-    modelSize: []
-    modelPosition: []
-    modelRotation: []
-    mapPosition: []
-    mapRotation: []
+    radius: 0.02
+    immersalMapManager:
+    - mapID: 111295
+      mapPosition:
+        X: 0
+        Y: 0
+        Z: 0
+      mapRotation:
+        X: 0
+        Y: 0
+        Z: 0
+    immersalModelManager:
+    - modelID: 1
+      modelSize: 0.1
+      modelPosition:
+        X: 100
+        Y: 200
+        Z: 300
+      modelRotation:
+        X: 30
+        Y: 30
+        Z: 30
+    - modelID: 2
+      modelSize: 0.1
+      modelPosition:
+        X: 0
+        Y: 0
+        Z: 0
+      modelRotation:
+        X: 0
+        Y: 0
+        Z: 0

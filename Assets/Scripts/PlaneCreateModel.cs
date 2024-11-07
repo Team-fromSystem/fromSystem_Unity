@@ -28,10 +28,12 @@ public class PlaneCreateModel : MonoBehaviour
 
     public bool clickedButton = false;
 
-    public Canvas mainModelDropdownCanvas;
-    public Canvas clearButtonCanvas;
+    [SerializeField] private GameObject mainModelDropdownObj;
+    [SerializeField] private GameObject itemDropdownObj;
+    [SerializeField] private GameObject clearButtonObj;
+    [SerializeField] private GameObject screenShotButtonObj;
+    [SerializeField] private GameObject addButtonObj;
 
-    public Canvas itemDropdownCanvas;
     public ModelData modelData;
     public PlaneTrackingData planeTrackingData;
 
@@ -43,8 +45,6 @@ public class PlaneCreateModel : MonoBehaviour
     {
         aRPlaneManager = GetComponent<ARPlaneManager>();
         aRRaycastManager = GetComponent<ARRaycastManager>();
-        clearButtonCanvas.enabled = false;
-        itemDropdownCanvas.enabled = false;
         foreach (var modelID in planeTrackingData.planeTrackingManager.mainModelID)
         {
             var model = modelData.modelManagers.Find(x => x.modelID == modelID);
@@ -52,11 +52,15 @@ public class PlaneCreateModel : MonoBehaviour
             {
                 return;
             }
-            if(!setMainObject){
-                mainModelObject=model.model;
-                setMainObject=true;
+            var setModel=model.model;
+            setModel.AddComponent<Rigidbody>();
+            if (!setMainObject)
+            {
+                mainModelObject = setModel;
+                setMainObject = true;
             }
-            mainModelDropdown.options.Add(new TMP_Dropdown.OptionData($"{modelID}"));
+            objectList.Add(setModel);
+            mainModelDropdown.options.Add(new TMP_Dropdown.OptionData($"{model.modelName}"));
         }
         mainModelDropdown.RefreshShownValue();
         foreach (var submodelID in planeTrackingData.planeTrackingManager.decorationModelID)
@@ -66,16 +70,21 @@ public class PlaneCreateModel : MonoBehaviour
             {
                 return;
             }
+            var setModel=subModel.model;
+            setModel.AddComponent<DragObject>();
             if (!setItemObject)
             {
-                decoration.ItemObject = subModel.model;
+                decoration.ItemObject = setModel;
                 setItemObject = true;
             }
-            subModelDropdown.options.Add(new TMP_Dropdown.OptionData($"{submodelID}"));
+            decoration.itemList.Add(setModel);
+            subModelDropdown.options.Add(new TMP_Dropdown.OptionData($"{subModel.modelName}"));
         }
+        subModelDropdown.RefreshShownValue();
     }
 
-    public void ChangeMainModel(){
+    public void ChangeMainModel()
+    {
         mainModelObject = objectList[mainModelDropdown.value];
     }
 
@@ -86,19 +95,21 @@ public class PlaneCreateModel : MonoBehaviour
             return;
         }
 
-        if (mainModelObject == null)
-        {
+        if(mainModelObject==null){
             return;
         }
 
         var hitList = new List<ARRaycastHit>();
         if (aRRaycastManager.Raycast(Input.GetTouch(0).position, hitList, TrackableType.PlaneWithinPolygon))
         {
-            mainModelDropdownCanvas.enabled = false;
-            clearButtonCanvas.enabled = true;
-            itemDropdownCanvas.enabled = true;
+            mainModelDropdownObj.SetActive(false);
+            clearButtonObj.SetActive(true);
+            itemDropdownObj.SetActive(true);
+            addButtonObj.SetActive(true);
+            screenShotButtonObj.SetActive(true);
             var hitPose = hitList[0].pose;
             var obj = Instantiate(mainModelObject, hitPose.position, hitPose.rotation);
+            mainModelObject=obj;
             instantObject = obj;
             // aRPlaneManager.planesChanged += OnPlanesChanged;
             aRPlaneManager.enabled = false;
@@ -125,10 +136,13 @@ public class PlaneCreateModel : MonoBehaviour
                 Destroy(item);
             }
             Destroy(instantObject);
-            instantObject = null;
-            mainModelDropdownCanvas.enabled = true;
-            clearButtonCanvas.enabled = false;
-            itemDropdownCanvas.enabled = false;
+            instantObject=null;
+            mainModelDropdownObj.SetActive(true);
+            clearButtonObj.SetActive(false);
+            itemDropdownObj.SetActive(false);
+            addButtonObj.SetActive(false);
+            screenShotButtonObj.SetActive(false);
+            // ChangeMainModel();
         }
     }
 

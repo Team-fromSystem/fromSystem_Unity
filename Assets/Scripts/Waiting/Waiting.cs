@@ -20,23 +20,77 @@ public class Waiting : MonoBehaviour
     [SerializeField] private AsyncOperation asyncLoad;
     [SerializeField] private Canvas buttonCanvas;
     [SerializeField] private TextMeshProUGUI debugText;
-    // [SerializeField] private FirebaseController firebaseController;
+    [SerializeField] private FirebaseController firebaseController;
 
-    public void Awake()
+    public void Start()
     {
         buttonCanvas.enabled = false;
-        // firebaseController.GetFirestoreData();
-        // StartCoroutine(LoadNextSceneAsync("MainScene"));
+        // firebaseController.GetImmersalData();
+        StartCoroutine(LoadNextSceneAsync("MainScene"));
     }
     private IEnumerator LoadNextSceneAsync(string sceneName)
     {
+        // yield return StartCoroutine(GetFireStore());
         yield return StartCoroutine(PerformSpecificTask());
-
         // 次のシーンを非同期で読み込み
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
 
-        // if (immersalMocks.Count != 0)
+
+        // ロードが90%完了するまで待機
+        while (asyncLoad.progress < 0.9f)
+        {
+            yield return null;
+        }
+
+        Debug.Log("OK");
+        // yield return StartCoroutine(WaitSecond());
+        buttonCanvas.enabled = true;
+
+        // var firstID = planeTrackingData.planeTrackingManager.mainModelID[0];
+        // debugText.text = $"{firstID}";
+        asyncLoad.allowSceneActivation = true;
+        // // 前のロードシーンをアンロード
+        // SceneManager.UnloadSceneAsync("WaitingScene");
+    }
+
+    public void StartAR()
+    {
+        asyncLoad.allowSceneActivation = true;
+        SceneManager.UnloadSceneAsync("WaitingScene");
+    }
+
+    private IEnumerator WaitSecond()
+    {
+        yield return new WaitForSeconds(2f);
+    }
+
+    private IEnumerator GetFireStore(){
+        // List<ImageTrackingManager> imageTrackingManager=firebaseController.GetImageTrackingData();
+        // while(imageTrackingManager.Count<=0){
+        //     yield return null;
+        // }
+        // Debug.Log($"imageID:{imageTrackingManager[1].imageID}");
+        firebaseController.GetModelData();
+        yield return null;
+    }
+
+    private IEnumerator PerformSpecificTask()
+    {
+        // ここに特定の処理を記述
+        Debug.Log("特定の処理を実行中...");
+        immersalData.immersalManagers = new List<ImmersalManager>(immersalMocks);
+        imageTrackingData.imageTrackingManagers = new List<ImageTrackingManager>(imageTrackingMocks);
+        planeTrackingData.planeTrackingManager = new PlaneTrackingManager(planeTrackingMock.mainModelID, planeTrackingMock.decorationModelID);
+        imageData.imageManagers = new List<ImageManager>(imageMocks);
+        modelData.modelManagers = new List<ModelManager>(modelMocks);
+        yield return null;
+        Debug.Log("特定の処理が完了しました");
+    }
+}
+
+
+    // if (immersalMocks.Count != 0)
         // {
         //     while (immersalData.immersalManagers.Count == 0)
         //     {
@@ -77,42 +131,3 @@ public class Waiting : MonoBehaviour
         //     }
         // }
 
-        // ロードが90%完了するまで待機
-        while (asyncLoad.progress < 0.9f)
-        {
-            yield return null;
-        }
-        // yield return StartCoroutine(WaitSecond());
-        buttonCanvas.enabled = true;
-
-        var firstID = planeTrackingData.planeTrackingManager.mainModelID[0];
-        debugText.text = $"{firstID}";
-        // asyncLoad.allowSceneActivation = true;
-        // // 前のロードシーンをアンロード
-        // SceneManager.UnloadSceneAsync("WaitingScene");
-    }
-
-    public void StartAR()
-    {
-        asyncLoad.allowSceneActivation = true;
-        SceneManager.UnloadSceneAsync("WaitingScene");
-    }
-
-    private IEnumerator WaitSecond()
-    {
-        yield return new WaitForSeconds(2f);
-    }
-
-    private IEnumerator PerformSpecificTask()
-    {
-        // ここに特定の処理を記述
-        Debug.Log("特定の処理を実行中...");
-        immersalData.immersalManagers = new List<ImmersalManager>(immersalMocks);
-        imageTrackingData.imageTrackingManagers = new List<ImageTrackingManager>(imageTrackingMocks);
-        planeTrackingData.planeTrackingManager = new PlaneTrackingManager(planeTrackingMock.mainModelID, planeTrackingMock.decorationModelID);
-        imageData.imageManagers = new List<ImageManager>(imageMocks);
-        modelData.modelManagers = new List<ModelManager>(modelMocks);
-        yield return null;
-        Debug.Log("特定の処理が完了しました");
-    }
-}

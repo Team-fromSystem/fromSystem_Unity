@@ -13,7 +13,7 @@ public class CheckLocation : MonoBehaviour
     [SerializeField] private double distance;
     [SerializeField] private double compensationRadius;
 
-    [SerializeField] private Canvas actionButton;
+    [SerializeField] private GameObject actionButton;
     [SerializeField] private ImmersalData immersalData;
     [SerializeField] private ImmersalManager nowTargetData;
 
@@ -57,12 +57,6 @@ public class CheckLocation : MonoBehaviour
         }
     }
 
-
-    void Awake()
-    {
-        actionButton.enabled = false;
-    }
-
     // // Update is called once per frame
     void Update()
     {
@@ -80,7 +74,7 @@ public class CheckLocation : MonoBehaviour
             {
                 nowTargetData = null;
                 immersalData.chosenImmersalManager = null;
-                actionButton.enabled = false;
+                actionButton.SetActive(false);
             }
             targetLocationText = $"targetLocation:{nowTargetData.location.latitude}";
             locationState = $"distance:{distance}";
@@ -93,7 +87,7 @@ public class CheckLocation : MonoBehaviour
             distance = Location_Distance(currentLocation, targetLocation);
             if (distance <= data.radius)
             {
-                actionButton.enabled = true;
+                actionButton.SetActive(true);
                 nowTargetData = data;
                 locationState = $"distance:{distance}";
                 immersalData.chosenImmersalManager = nowTargetData;

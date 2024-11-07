@@ -10,6 +10,7 @@ public class ScreenCapture : MonoBehaviour
     [SerializeField] private Camera _captureCamera;
     [SerializeField] private RawImage rawImage;
 
+    [SerializeField] private GameObject rawImageObj;
     public void TakeScreenshot()
     {
         // スクショ用の、ARカメラ描画結果を格納するRenderTextureを用意する
@@ -32,6 +33,7 @@ public class ScreenCapture : MonoBehaviour
         float rate = (float)rawImage.texture.width / rawImage.texture.height;
         float imageHeight = rawImage.rectTransform.sizeDelta.y;
         rawImage.rectTransform.sizeDelta = new Vector2(imageHeight * rate, imageHeight);
+        rawImageObj.SetActive(true);
 
         // try
         // {
