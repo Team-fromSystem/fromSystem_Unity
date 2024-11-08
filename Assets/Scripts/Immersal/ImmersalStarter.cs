@@ -36,7 +36,7 @@ namespace Immersal.Samples
         public int mapId=0;
 
         [SerializeField] private ImmersalData immersalData;
-        [SerializeField] private ModelData modelData;
+
 
         void Start()
         {   

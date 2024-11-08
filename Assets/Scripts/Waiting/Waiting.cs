@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Linq;
 
 public class Waiting : MonoBehaviour
 {
@@ -22,36 +23,62 @@ public class Waiting : MonoBehaviour
     [SerializeField] private TextMeshProUGUI debugText;
     [SerializeField] private FirebaseController firebaseController;
 
+    private PlaneTrackingManager planeTrackingManager = new PlaneTrackingManager(new List<int>(), new List<int>());
+    private List<ImageTrackingManager> imageTrackingManager = new List<ImageTrackingManager>();
+    private List<ImmersalManager> immersalManager = new List<ImmersalManager>();
+    private List<GetImageManager> imageManager = new List<GetImageManager>();
+    private List<GetModelManager> modelManager = new List<GetModelManager>();
+
     public void Start()
     {
         buttonCanvas.enabled = false;
-        // firebaseController.GetImmersalData();
-        StartCoroutine(LoadNextSceneAsync("MainScene"));
+        string ddd = "9Kwe3wUTRAeHxVRP7B4N";
+        string aaa = "1,2";
+        string bbb = "1,2";
+        string ccc = "1,2,3";
+        string[] aaa2 = aaa.Split(",");
+        List<int> aaa3=aaa2.Select(int.Parse).ToList();
+        string[] bbb2 = bbb.Split(",");
+        List<int> bbb3=bbb2.Select(int.Parse).ToList();
+        string[] ccc2 = ccc.Split(",");
+        // FirestoreManager firestoreManager = firebaseController.GetFirestoreManager("9Kwe3wUTRAeHxVRP7B4N");
+        List<object> modelID = aaa3.Select(i => (object)i).ToList();
+        List<object> imageID = bbb3.Select(i => (object)i).ToList();
+        List<int> detectType = ccc2.Select(int.Parse).ToList();
+        StartCoroutine(LoadNextSceneAsync("MainScene", ddd, modelID, imageID, detectType));
     }
-    private IEnumerator LoadNextSceneAsync(string sceneName)
+    private IEnumerator LoadNextSceneAsync(string sceneName, string documentID, List<object> modelID, List<object> imageID, List<int> detectType)
     {
-        // yield return StartCoroutine(GetFireStore());
-        yield return StartCoroutine(PerformSpecificTask());
+        IEnumerator coroutine = GetFireStore(documentID, modelID, imageID, detectType);
+        yield return StartCoroutine(coroutine);
+        bool result = (bool)coroutine.Current;
+        if (result)
+        {
+            Debug.Log("取得成功");
+        }
+        else
+        {
+            Debug.Log("取得失敗");
+        }
+
+        // yield return StartCoroutine(PerformSpecificTask());
         // 次のシーンを非同期で読み込み
-        asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-        asyncLoad.allowSceneActivation = false;
+        // asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        // asyncLoad.allowSceneActivation = false;
 
 
         // ロードが90%完了するまで待機
-        while (asyncLoad.progress < 0.9f)
-        {
-            yield return null;
-        }
+        // while (asyncLoad.progress < 0.9f)
+        // {
+        //     yield return null;
+        // }
 
         Debug.Log("OK");
-        // yield return StartCoroutine(WaitSecond());
-        buttonCanvas.enabled = true;
+        // buttonCanvas.enabled = true;
 
         // var firstID = planeTrackingData.planeTrackingManager.mainModelID[0];
         // debugText.text = $"{firstID}";
-        asyncLoad.allowSceneActivation = true;
-        // // 前のロードシーンをアンロード
-        // SceneManager.UnloadSceneAsync("WaitingScene");
+        // asyncLoad.allowSceneActivation = true;
     }
 
     public void StartAR()
@@ -65,14 +92,44 @@ public class Waiting : MonoBehaviour
         yield return new WaitForSeconds(2f);
     }
 
-    private IEnumerator GetFireStore(){
-        // List<ImageTrackingManager> imageTrackingManager=firebaseController.GetImageTrackingData();
-        // while(imageTrackingManager.Count<=0){
-        //     yield return null;
-        // }
-        // Debug.Log($"imageID:{imageTrackingManager[1].imageID}");
-        firebaseController.GetModelData();
-        yield return null;
+    private IEnumerator GetFireStore(string documentID, List<object> modelID, List<object> imageID, List<int> detectType)
+    {
+        modelManager = firebaseController.GetModelData(modelID);
+        if (detectType.Contains(1))
+        {
+            planeTrackingManager = firebaseController.GetPlaneTrackingData(documentID);
+        }
+        if (detectType.Contains(2))
+        {
+            imageTrackingManager = firebaseController.GetImageTrackingData(documentID);
+            imageManager = firebaseController.GetImageData(imageID);
+        }
+        if (detectType.Contains(3))
+        {
+            immersalManager = firebaseController.GetImmersalData(documentID);
+        }
+        Debug.Log("GetFireStore");
+        while (modelManager.Count <= 0)
+        {
+            yield return null;
+        }
+        while (planeTrackingManager == null && detectType.Contains(1))
+        {
+            yield return null;
+        }
+        while (imageTrackingManager.Count <= 0 && detectType.Contains(2))
+        {
+            yield return null;
+        }
+        while (imageManager.Count <= 0 && detectType.Contains(2))
+        {
+            yield return null;
+        }
+        while (immersalManager.Count <= 0 && detectType.Contains(3))
+        {
+            yield return null;
+        }
+        yield return true;
     }
 
     private IEnumerator PerformSpecificTask()
@@ -90,44 +147,44 @@ public class Waiting : MonoBehaviour
 }
 
 
-    // if (immersalMocks.Count != 0)
-        // {
-        //     while (immersalData.immersalManagers.Count == 0)
-        //     {
-        //         Debug.Log("WaitingImmersalData");
-        //         yield return null;
-        //     }
-        // }
-        // if (imageTrackingMocks.Count != 0)
-        // {
-        //     while (imageTrackingData.imageTrackingManagers.Count == 0)
-        //     {
-        //         Debug.Log("WaitingImageTrackingData");
-        //         yield return null;
-        //     }
-        // }
-        // if (planeTrackingMock != null)
-        // {
-        //     while (planeTrackingData.planeTrackingManager == null)
-        //     {
-        //         Debug.Log("WaitingPlaneTrackingData");
-        //         yield return null;
-        //     }
-        // }
-        // if (imageMocks.Count != 0)
-        // {
-        //     while (imageData.imageManagers.Count == 0)
-        //     {
-        //         Debug.Log("WaitingImageData");
-        //         yield return null;
-        //     }
-        // }
-        // if (modelMocks.Count != 0)
-        // {
-        //     while (modelData.modelManagers.Count == 0)
-        //     {
-        //         Debug.Log("WaitingModelData");
-        //         yield return null;
-        //     }
-        // }
+// if (immersalMocks.Count != 0)
+// {
+//     while (immersalData.immersalManagers.Count == 0)
+//     {
+//         Debug.Log("WaitingImmersalData");
+//         yield return null;
+//     }
+// }
+// if (imageTrackingMocks.Count != 0)
+// {
+//     while (imageTrackingData.imageTrackingManagers.Count == 0)
+//     {
+//         Debug.Log("WaitingImageTrackingData");
+//         yield return null;
+//     }
+// }
+// if (planeTrackingMock != null)
+// {
+//     while (planeTrackingData.planeTrackingManager == null)
+//     {
+//         Debug.Log("WaitingPlaneTrackingData");
+//         yield return null;
+//     }
+// }
+// if (imageMocks.Count != 0)
+// {
+//     while (imageData.imageManagers.Count == 0)
+//     {
+//         Debug.Log("WaitingImageData");
+//         yield return null;
+//     }
+// }
+// if (modelMocks.Count != 0)
+// {
+//     while (modelData.modelManagers.Count == 0)
+//     {
+//         Debug.Log("WaitingModelData");
+//         yield return null;
+//     }
+// }
 

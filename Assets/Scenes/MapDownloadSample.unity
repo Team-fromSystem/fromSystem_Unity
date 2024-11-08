@@ -3052,7 +3052,6 @@ MonoBehaviour:
   m_LocMethodChoice: 0
   mapId: 0
   immersalData: {fileID: 11400000, guid: 2836fa150d22c43329f6f1409073fddc, type: 2}
-  modelData: {fileID: 0}
 --- !u!4 &1655836346
 Transform:
   m_ObjectHideFlags: 0
@@ -3082,11 +3081,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelData: {fileID: 11400000, guid: 5a62169d268fe43468f341552acb83a7, type: 2}
   immersalData: {fileID: 11400000, guid: 2836fa150d22c43329f6f1409073fddc, type: 2}
+  planeTrackingData: {fileID: 11400000, guid: c634425ada20a489f88f25e2cf2900d7, type: 2}
+  imageTrackingData: {fileID: 11400000, guid: a42cf773d5a8147cdbfd5a56f2fa562d, type: 2}
+  imageData: {fileID: 11400000, guid: 040fa25b55f62474f9eaedaf1e63411e, type: 2}
   checkedXRMap: 0
   targetModels: []
   targetModelsManagers: []
-  targetXRMap: {fileID: 0}
   targetObject: {fileID: 0}
+  xrMap: {fileID: 0}
+  children: {fileID: 0}
 --- !u!114 &1655836348
 MonoBehaviour:
   m_ObjectHideFlags: 0

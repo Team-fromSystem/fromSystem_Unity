@@ -8,6 +8,9 @@ public class ModelController : MonoBehaviour
 {
     [SerializeField] private ModelData modelData;
     [SerializeField] private ImmersalData immersalData;
+    [SerializeField] private PlaneTrackingData planeTrackingData;
+    [SerializeField] private ImageTrackingData imageTrackingData;
+    [SerializeField] private ImageData imageData;
     [SerializeField] private bool checkedXRMap = false;
     [SerializeField] private List<ModelManager> targetModels;
     [SerializeField] private List<ImmersalModelManager> targetModelsManagers;

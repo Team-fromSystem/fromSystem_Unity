@@ -10,7 +10,6 @@ public class PlaneCreateModel : MonoBehaviour
 {
     public float m_ClickHoldTime = 0.1f;
     public float m_timeHold = 0f;
-    public EventData eventData;
     ARPlaneManager aRPlaneManager;
     ARRaycastManager aRRaycastManager;
 
@@ -26,7 +25,6 @@ public class PlaneCreateModel : MonoBehaviour
 
     public List<GameObject> itemObjectList = new List<GameObject>();
 
-    public bool clickedButton = false;
 
     [SerializeField] private GameObject mainModelDropdownObj;
     [SerializeField] private GameObject itemDropdownObj;
@@ -36,6 +34,8 @@ public class PlaneCreateModel : MonoBehaviour
 
     public ModelData modelData;
     public PlaneTrackingData planeTrackingData;
+    [SerializeField] private ImageTrackingData imageTrackingData;
+    [SerializeField] private ImageData imageData;
 
     public Decoration decoration;
     private bool setItemObject = false;
@@ -45,6 +45,9 @@ public class PlaneCreateModel : MonoBehaviour
     {
         aRPlaneManager = GetComponent<ARPlaneManager>();
         aRRaycastManager = GetComponent<ARRaycastManager>();
+        objectList.Clear();
+        Debug.Log($"{planeTrackingData.planeTrackingManager.mainModelID.Count}");
+        Debug.Log($"{modelData.modelManagers.Count}");
         foreach (var modelID in planeTrackingData.planeTrackingManager.mainModelID)
         {
             var model = modelData.modelManagers.Find(x => x.modelID == modelID);
@@ -52,8 +55,8 @@ public class PlaneCreateModel : MonoBehaviour
             {
                 return;
             }
-            var setModel=model.model;
-            setModel.AddComponent<Rigidbody>();
+            var setModel = model.model;
+            setModel.AddComponent<DragObject>();
             if (!setMainObject)
             {
                 mainModelObject = setModel;
@@ -62,7 +65,13 @@ public class PlaneCreateModel : MonoBehaviour
             objectList.Add(setModel);
             mainModelDropdown.options.Add(new TMP_Dropdown.OptionData($"{model.modelName}"));
         }
+        foreach (var obj in objectList)
+        {
+            Debug.Log($"Main：{obj.name}");
+        }
         mainModelDropdown.RefreshShownValue();
+        Debug.Log("StartDecoSet");
+        decoration.itemList.Clear();
         foreach (var submodelID in planeTrackingData.planeTrackingManager.decorationModelID)
         {
             var subModel = modelData.modelManagers.Find(x => x.modelID == submodelID);
@@ -70,7 +79,7 @@ public class PlaneCreateModel : MonoBehaviour
             {
                 return;
             }
-            var setModel=subModel.model;
+            var setModel = subModel.model;
             setModel.AddComponent<DragObject>();
             if (!setItemObject)
             {
@@ -79,6 +88,10 @@ public class PlaneCreateModel : MonoBehaviour
             }
             decoration.itemList.Add(setModel);
             subModelDropdown.options.Add(new TMP_Dropdown.OptionData($"{subModel.modelName}"));
+        }
+        foreach (var obj in decoration.itemList)
+        {
+            Debug.Log($"Decoration：{obj.name}");
         }
         subModelDropdown.RefreshShownValue();
     }
@@ -90,26 +103,34 @@ public class PlaneCreateModel : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount == 0 || Input.GetTouch(0).phase != TouchPhase.Ended || instantObject != null || clickedButton)
+        if (mainModelObject == null)
+        {
+            Debug.Log("setMainModelObject");
+            mainModelObject = objectList[mainModelDropdown.value];
+            return;
+        }
+        if (Input.touchCount == 0 || Input.GetTouch(0).phase != TouchPhase.Ended || instantObject != null)
         {
             return;
         }
 
-        if(mainModelObject==null){
+        if (EventSystem.current.currentSelectedGameObject != null)
+        {
             return;
         }
 
         var hitList = new List<ARRaycastHit>();
         if (aRRaycastManager.Raycast(Input.GetTouch(0).position, hitList, TrackableType.PlaneWithinPolygon))
         {
+            Debug.Log("生成");
             mainModelDropdownObj.SetActive(false);
             clearButtonObj.SetActive(true);
             itemDropdownObj.SetActive(true);
             addButtonObj.SetActive(true);
             screenShotButtonObj.SetActive(true);
             var hitPose = hitList[0].pose;
-            var obj = Instantiate(mainModelObject, hitPose.position, hitPose.rotation);
-            mainModelObject=obj;
+            GameObject obj = Instantiate(mainModelObject, hitPose.position, hitPose.rotation);
+            mainModelObject = obj;
             instantObject = obj;
             // aRPlaneManager.planesChanged += OnPlanesChanged;
             aRPlaneManager.enabled = false;
@@ -122,7 +143,6 @@ public class PlaneCreateModel : MonoBehaviour
 
     public void Clear()
     {
-        clickedButton = true;
         if (instantObject != null)
         {
             aRPlaneManager.enabled = true;
@@ -136,31 +156,15 @@ public class PlaneCreateModel : MonoBehaviour
                 Destroy(item);
             }
             Destroy(instantObject);
-            instantObject=null;
+            instantObject = null;
             mainModelDropdownObj.SetActive(true);
             clearButtonObj.SetActive(false);
             itemDropdownObj.SetActive(false);
             addButtonObj.SetActive(false);
             screenShotButtonObj.SetActive(false);
-            // ChangeMainModel();
         }
     }
 
-    public void notTap()
-    {
-        clickedButton = true;
-    }
-
-    public void allowTap()
-    {
-        StartCoroutine(ChengeState());
-    }
-
-    private IEnumerator ChengeState()
-    {
-        yield return new WaitForSeconds(0.1f);
-        clickedButton = false;
-    }
 
     void OnPlanesChanged(ARPlanesChangedEventArgs args)
     {

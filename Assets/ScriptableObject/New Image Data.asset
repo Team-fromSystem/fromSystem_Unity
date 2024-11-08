@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61338a19231524c19aac4890a7f5d6b8, type: 3}
   m_Name: New Image Data
   m_EditorClassIdentifier: 
-  imageManagers:
-  - imageID: 1
-    image: {fileID: 2800000, guid: e49910ecd974f42cc9535b97bb3c433f, type: 3}
-  - imageID: 2
-    image: {fileID: 2800000, guid: a16b80590a9754e91aa3ac5f4db2a24f, type: 3}
+  imageManagers: []

@@ -2007,6 +2007,7 @@ MonoBehaviour:
   imageTrackingData: {fileID: 11400000, guid: a42cf773d5a8147cdbfd5a56f2fa562d, type: 2}
   imageData: {fileID: 11400000, guid: 040fa25b55f62474f9eaedaf1e63411e, type: 2}
   modelData: {fileID: 11400000, guid: 5a62169d268fe43468f341552acb83a7, type: 2}
+  planeTrackingData: {fileID: 11400000, guid: c634425ada20a489f88f25e2cf2900d7, type: 2}
 --- !u!114 &833164545
 MonoBehaviour:
   m_ObjectHideFlags: 0

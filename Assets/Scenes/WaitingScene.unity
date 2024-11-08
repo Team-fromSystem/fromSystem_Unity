@@ -1049,8 +1049,8 @@ MonoBehaviour:
       Y: 0
       Z: 0
   planeTrackingMock:
-    mainModelID: 0300000006000000
-    decorationModelID: 0400000005000000
+    mainModelID: 020000000300000006000000
+    decorationModelID: 010000000400000005000000
   imageMocks:
   - imageID: 1
     image: {fileID: 2800000, guid: e49910ecd974f42cc9535b97bb3c433f, type: 3}

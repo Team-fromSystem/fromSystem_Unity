@@ -18,10 +18,10 @@ public class FirebaseController : MonoBehaviour
     {
         db = FirebaseFirestore.DefaultInstance;
     }
-    public List<ImageTrackingManager> GetImageTrackingData()
+    public List<ImageTrackingManager> GetImageTrackingData(string documentID)
     {
         List<ImageTrackingManager> allData = new List<ImageTrackingManager>();
-        DocumentReference docRef = CreateDocRef("9Kwe3wUTRAeHxVRP7B4N", CreateColRef("events"));
+        DocumentReference docRef = CreateDocRef(documentID, CreateColRef("events"));
         CollectionReference imageColRef = CreateColRef("Image", docRef);
         imageColRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
@@ -53,10 +53,10 @@ public class FirebaseController : MonoBehaviour
         RotationManager modelROtation = ConvertRotation(oneDoc["modelRotation"]);
         return new ImageTrackingManager(imageID, modelID, modelSize, modelPosition, modelROtation);
     }
-    public PlaneTrackingManager GerPlaneTrackingData()
+    public PlaneTrackingManager GetPlaneTrackingData(string documentID)
     {
         PlaneTrackingManager allData = new PlaneTrackingManager(new List<int>(), new List<int>());
-        DocumentReference docRef = CreateDocRef("9Kwe3wUTRAeHxVRP7B4N", CreateColRef("events"));
+        DocumentReference docRef = CreateDocRef(documentID, CreateColRef("events"));
         CollectionReference planeColRef = CreateColRef("Plane", docRef);
         planeColRef.Limit(1).GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
@@ -88,10 +88,10 @@ public class FirebaseController : MonoBehaviour
         return new PlaneTrackingManager(mainModelID, decorationModelID);
     }
 
-    public List<ImmersalManager> GetImmersalData()
+    public List<ImmersalManager> GetImmersalData(string documentID)
     {
         List<ImmersalManager> allData = new List<ImmersalManager>();
-        DocumentReference docRef = CreateDocRef("9Kwe3wUTRAeHxVRP7B4N", CreateColRef("events"));
+        DocumentReference docRef = CreateDocRef(documentID, CreateColRef("events"));
         CollectionReference imageColRef = CreateColRef("Immersal", docRef);
         imageColRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
@@ -164,12 +164,10 @@ public class FirebaseController : MonoBehaviour
         return locationManager;
     }
 
-    public List<GetImageManager> GetImageData()
+    public List<GetImageManager> GetImageData(List<object> imageID)
     {
         List<GetImageManager> allData = new List<GetImageManager>();
-        int[] imageIDAsIntArray = { 1 };
-        object[] imageIDAsObjArray = imageIDAsIntArray.Cast<object>().ToArray();
-        Query imageColQuery = CreateColRef("images").WhereIn("imageID", imageIDAsObjArray);
+        Query imageColQuery = CreateColRef("images").WhereIn("imageID", imageID);
         imageColQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsCompleted)
@@ -203,12 +201,10 @@ public class FirebaseController : MonoBehaviour
         return getImageManager;
     }
 
-    public List<GetModelManager> GetModelData()
+    public List<GetModelManager> GetModelData(List<object> modelID)
     {
         List<GetModelManager> allData = new List<GetModelManager>();
-        int[] modelIDAsIntArray = { 1 };
-        object[] modelIDAsObjArray = modelIDAsIntArray.Cast<object>().ToArray();
-        Query modelColQuery = CreateColRef("models").WhereIn("modelID", modelIDAsObjArray);
+        Query modelColQuery = CreateColRef("models").WhereIn("modelID", modelID);
         modelColQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsCompleted)
@@ -240,6 +236,18 @@ public class FirebaseController : MonoBehaviour
         string fileFormat = (string)Convert.ChangeType(oneDoc["fileFormat"], typeof(string));
         GetModelManager getModelManager = new GetModelManager(modelID, hostID, modelURL, modelName, fileFormat);
         return getModelManager;
+    }
+
+    private FirestoreManager ConvertFirestore(Dictionary<string, object> eventData)
+    {
+        var modelID = (List<object>)Convert.ChangeType(eventData["modelID"], typeof(List<object>));
+        var imageID = (List<object>)Convert.ChangeType(eventData["imageID"], typeof(List<object>));
+        var detectTypeAsObj = (List<object>)Convert.ChangeType(eventData["detectType"], typeof(List<object>));
+        var detectType = detectTypeAsObj.Select(obj => Convert.ToInt32(obj)).ToList();
+        Debug.Log($"{modelID.Count}");
+        Debug.Log($"{imageID.Count}");
+        Debug.Log($"{detectType.Count}");
+        return new FirestoreManager(modelID, imageID, detectType);
     }
     private CollectionReference CreateColRef(string colName, DocumentReference docRef = null)
     {

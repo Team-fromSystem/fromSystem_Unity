@@ -16,6 +16,7 @@ public class MainSceneStarter : MonoBehaviour
     [SerializeField] private ImageTrackingData imageTrackingData;
     [SerializeField] private ImageData imageData;
     [SerializeField] private ModelData modelData;
+    [SerializeField] private PlaneTrackingData planeTrackingData;
 
     void Awake()
     {

@@ -171,7 +171,6 @@ GameObject:
   - component: {fileID: 27292495}
   - component: {fileID: 27292494}
   - component: {fileID: 27292493}
-  - component: {fileID: 27292497}
   m_Layer: 5
   m_Name: Dropdown
   m_TagString: Untagged
@@ -305,51 +304,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 110, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &27292497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27292492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1379601864}
-          m_TargetAssemblyTypeName: PlaneCreateModel, Assembly-CSharp
-          m_MethodName: notTap
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1379601864}
-          m_TargetAssemblyTypeName: PlaneCreateModel, Assembly-CSharp
-          m_MethodName: allowTap
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &33763982
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,7 +2819,6 @@ GameObject:
   - component: {fileID: 1042207070}
   - component: {fileID: 1042207069}
   - component: {fileID: 1042207068}
-  - component: {fileID: 1042207071}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2936,7 +2889,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1042207069}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1379601864}
+        m_TargetAssemblyTypeName: PlaneCreateModel, Assembly-CSharp
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1042207069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2975,51 +2940,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042207065}
   m_CullTransparentMesh: 1
---- !u!114 &1042207071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1042207065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1379601864}
-          m_TargetAssemblyTypeName: PlaneCreateModel, Assembly-CSharp
-          m_MethodName: Clear
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1379601864}
-          m_TargetAssemblyTypeName: PlaneCreateModel, Assembly-CSharp
-          m_MethodName: allowTap
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1043307779
 GameObject:
   m_ObjectHideFlags: 0
@@ -3690,13 +3610,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ClickHoldTime: 0.1
   m_timeHold: 0
-  eventData: {fileID: 11400000, guid: bdab9d4199ff44aaabec1a2fec09e897, type: 2}
   mainModelDropdown: {fileID: 27292493}
   subModelDropdown: {fileID: 566837896}
   objectList: []
   instantObject: {fileID: 0}
   itemObjectList: []
-  clickedButton: 0
   mainModelDropdownObj: {fileID: 1249986125}
   itemDropdownObj: {fileID: 7811145}
   clearButtonObj: {fileID: 1084821173}
@@ -3704,6 +3622,8 @@ MonoBehaviour:
   addButtonObj: {fileID: 572461286}
   modelData: {fileID: 11400000, guid: 5a62169d268fe43468f341552acb83a7, type: 2}
   planeTrackingData: {fileID: 11400000, guid: c634425ada20a489f88f25e2cf2900d7, type: 2}
+  imageTrackingData: {fileID: 11400000, guid: a42cf773d5a8147cdbfd5a56f2fa562d, type: 2}
+  imageData: {fileID: 11400000, guid: 040fa25b55f62474f9eaedaf1e63411e, type: 2}
   decoration: {fileID: 2102867849}
 --- !u!114 &1379601865
 MonoBehaviour:
@@ -4406,7 +4326,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1655912725}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1379601869}
+        m_TargetAssemblyTypeName: CheckLocation, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1655912725
 MonoBehaviour:
   m_ObjectHideFlags: 0
