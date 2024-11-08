@@ -144,6 +144,12 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 4800000, guid: b02d09082cbc14569ae46c12d9836abc, type: 3}
   - {fileID: 4800000, guid: f40a6c94c8e1b494d93d434ae522a14f, type: 3}
+  - {fileID: 2294510874563379572, guid: 07fe4e2153bc5422aa26a9471d9e2249, type: 2}
+  - {fileID: 11400000, guid: 0cdad9a436f4545b883fcb9d3f28ac8a, type: 2}
+  - {fileID: 11400000, guid: 44138966f76d543368b28d88f062f4b2, type: 2}
+  - {fileID: 4800000, guid: e7c77f6eaab324a819efdc13b8125a39, type: 3}
+  - {fileID: 4800000, guid: 6743a50a812740be8c0aa3fccc46fae9, type: 3}
+  - {fileID: 7585796405310624745, guid: 69c9b9f16227447668562977c705fcf0, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -190,7 +196,7 @@ PlayerSettings:
   strictShaderVariantMatching: 0
   VertexChannelCompressionMask: 4054
   iPhoneSdkVersion: 988
-  iOSTargetOSVersionString: 12.0
+  iOSTargetOSVersionString: 13.0
   tvOSSdkVersion: 0
   tvOSRequireExtendedGameController: 0
   tvOSTargetOSVersionString: 12.0
