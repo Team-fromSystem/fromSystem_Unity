@@ -19,19 +19,20 @@ public class Waiting : MonoBehaviour
     [SerializeField] private List<ImageManager> imageMocks;
     [SerializeField] private List<ModelManager> modelMocks;
     [SerializeField] private AsyncOperation asyncLoad;
-    [SerializeField] private Canvas buttonCanvas;
+    [SerializeField] private GameObject modelLoadButton;
     [SerializeField] private TextMeshProUGUI debugText;
-    [SerializeField] private FirebaseController firebaseController;
+    // [SerializeField] private FirebaseController firebaseController;
 
     private PlaneTrackingManager planeTrackingManager = new PlaneTrackingManager(new List<int>(), new List<int>());
     private List<ImageTrackingManager> imageTrackingManager = new List<ImageTrackingManager>();
     private List<ImmersalManager> immersalManager = new List<ImmersalManager>();
     private List<GetImageManager> imageManager = new List<GetImageManager>();
     private List<GetModelManager> modelManager = new List<GetModelManager>();
+    private List<ImageManager> images=new List<ImageManager>();
+    private List<ModelManager> models=new List<ModelManager>();
 
     public void Start()
     {
-        buttonCanvas.enabled = false;
         string ddd = "9Kwe3wUTRAeHxVRP7B4N";
         string aaa = "1,2";
         string bbb = "1,2";
@@ -45,41 +46,45 @@ public class Waiting : MonoBehaviour
         List<object> modelID = aaa3.Select(i => (object)i).ToList();
         List<object> imageID = bbb3.Select(i => (object)i).ToList();
         List<int> detectType = ccc2.Select(int.Parse).ToList();
-        StartCoroutine(LoadNextSceneAsync("MainScene", ddd, modelID, imageID, detectType));
+        StartCoroutine(LoadDataAsync("MainScene", ddd, modelID, imageID, detectType));
     }
-    private IEnumerator LoadNextSceneAsync(string sceneName, string documentID, List<object> modelID, List<object> imageID, List<int> detectType)
+    private IEnumerator LoadDataAsync(string sceneName, string documentID, List<object> modelID, List<object> imageID, List<int> detectType)
     {
-        IEnumerator coroutine = GetFireStore(documentID, modelID, imageID, detectType);
-        yield return StartCoroutine(coroutine);
-        bool result = (bool)coroutine.Current;
-        if (result)
-        {
-            Debug.Log("取得成功");
-        }
-        else
-        {
-            Debug.Log("取得失敗");
-        }
+        // IEnumerator coroutine = GetFireStore(documentID, modelID, imageID, detectType);
+        // yield return StartCoroutine(coroutine);
+        // bool result = (bool)coroutine.Current;
+        // if (result)
+        // {
+        //     Debug.Log("取得成功");
+        // }
+        // else
+        // {
+        //     Debug.Log("取得失敗");
+        //     yield break;
+        // }
 
-        // yield return StartCoroutine(PerformSpecificTask());
+        yield return StartCoroutine(PerformSpecificTask());
         // 次のシーンを非同期で読み込み
-        // asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-        // asyncLoad.allowSceneActivation = false;
+        asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        asyncLoad.allowSceneActivation = false;
 
 
         // ロードが90%完了するまで待機
-        // while (asyncLoad.progress < 0.9f)
-        // {
-        //     yield return null;
-        // }
-
-        Debug.Log("OK");
-        // buttonCanvas.enabled = true;
+        while (asyncLoad.progress < 0.9f)
+        {
+            yield return null;
+        }
 
         // var firstID = planeTrackingData.planeTrackingManager.mainModelID[0];
         // debugText.text = $"{firstID}";
-        // asyncLoad.allowSceneActivation = true;
+        asyncLoad.allowSceneActivation = true;
+        // modelLoadButton.SetActive(true);
     }
+
+    // public void FileLoad(){
+    //     firebaseController.ImageFileDownloader(imageManager[0]);
+    // }
+
 
     public void StartAR()
     {
@@ -87,54 +92,50 @@ public class Waiting : MonoBehaviour
         SceneManager.UnloadSceneAsync("WaitingScene");
     }
 
-    private IEnumerator WaitSecond()
-    {
-        yield return new WaitForSeconds(2f);
-    }
 
-    private IEnumerator GetFireStore(string documentID, List<object> modelID, List<object> imageID, List<int> detectType)
-    {
-        modelManager = firebaseController.GetModelData(modelID);
-        if (detectType.Contains(1))
-        {
-            planeTrackingManager = firebaseController.GetPlaneTrackingData(documentID);
-        }
-        if (detectType.Contains(2))
-        {
-            imageTrackingManager = firebaseController.GetImageTrackingData(documentID);
-            imageManager = firebaseController.GetImageData(imageID);
-        }
-        if (detectType.Contains(3))
-        {
-            immersalManager = firebaseController.GetImmersalData(documentID);
-        }
-        Debug.Log("GetFireStore");
-        while (modelManager.Count <= 0)
-        {
-            yield return null;
-        }
-        while (planeTrackingManager == null && detectType.Contains(1))
-        {
-            yield return null;
-        }
-        while (imageTrackingManager.Count <= 0 && detectType.Contains(2))
-        {
-            yield return null;
-        }
-        while (imageManager.Count <= 0 && detectType.Contains(2))
-        {
-            yield return null;
-        }
-        while (immersalManager.Count <= 0 && detectType.Contains(3))
-        {
-            yield return null;
-        }
-        yield return true;
-    }
+    // private IEnumerator GetFireStore(string documentID, List<object> modelID, List<object> imageID, List<int> detectType)
+    // {
+    //     modelManager = firebaseController.GetModelData(modelID);
+    //     if (detectType.Contains(1))
+    //     {
+    //         planeTrackingManager = firebaseController.GetPlaneTrackingData(documentID);
+    //     }
+    //     if (detectType.Contains(2))
+    //     {
+    //         imageTrackingManager = firebaseController.GetImageTrackingData(documentID);
+    //         imageManager = firebaseController.GetImageData(imageID);
+    //     }
+    //     if (detectType.Contains(3))
+    //     {
+    //         immersalManager = firebaseController.GetImmersalData(documentID);
+    //     }
+    //     Debug.Log("GetFireStore");
+    //     while (modelManager.Count <= 0)
+    //     {
+    //         yield return null;
+    //     }
+    //     while (planeTrackingManager == null && detectType.Contains(1))
+    //     {
+    //         yield return null;
+    //     }
+    //     while (imageTrackingManager.Count <= 0 && detectType.Contains(2))
+    //     {
+    //         yield return null;
+    //     }
+    //     while (imageManager.Count <= 0 && detectType.Contains(2))
+    //     {
+    //         yield return null;
+    //     }
+    //     while (immersalManager.Count <= 0 && detectType.Contains(3))
+    //     {
+    //         yield return null;
+    //     }
+    //     yield return true;
+    // }
 
     private IEnumerator PerformSpecificTask()
     {
-        // ここに特定の処理を記述
+        //ここに特定の処理を記述
         Debug.Log("特定の処理を実行中...");
         immersalData.immersalManagers = new List<ImmersalManager>(immersalMocks);
         imageTrackingData.imageTrackingManagers = new List<ImageTrackingManager>(imageTrackingMocks);

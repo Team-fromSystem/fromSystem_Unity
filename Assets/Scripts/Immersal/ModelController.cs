@@ -18,7 +18,7 @@ public class ModelController : MonoBehaviour
     [SerializeField] private GameObject xrMap;
     private ImmersalSDK m_Sdk;
     [SerializeField] private GameObject children;
-    private bool activeSW=false;
+    private bool activeSW = false;
     // Update is called once per frame
     void Awake()
     {
@@ -28,58 +28,7 @@ public class ModelController : MonoBehaviour
             targetModelsManagers.Add(modelManager);
             targetModels.Add(modelData.modelManagers.Find(x => x.modelID == modelManager.modelID));
         }
-
-    }
-    void Update()
-    {
-        int q = m_Sdk.TrackingStatus?.TrackingQuality ?? 0;
-        if (checkedXRMap)
-        {
-            switch (q)
-            {
-                case 0:
-                    if (activeSW)
-                    {
-                        // children.transform.SetParent(xrMap.transform);
-                        children.SetActive(false);
-                        activeSW = false;
-                    }
-                    break;
-                case 1:
-                    if (activeSW)
-                    {
-                        // children.transform.SetParent(xrMap.transform);
-                        children.SetActive(false);
-                        activeSW = false;
-                    }
-                    break;
-                case 2:
-                    if (!activeSW)
-                    {
-                        // children.transform.parent = null;
-                        children.SetActive(true);
-                        activeSW = true;
-                    }
-                    break;
-                default:
-                    if (!activeSW)
-                    {
-                        // children.transform.parent = null;
-                        children.SetActive(true);
-                        activeSW = true;
-                    }
-                    break;
-            }
-            return;
-        }
-        xrMap = GameObject.FindWithTag("XRMap");
-        if (xrMap == null)
-        {
-            return;
-        }
-        var parent = xrMap.transform;
-        children=new GameObject("Children");
-        children.transform.SetParent(parent);
+        children = new GameObject("Children");
         children.SetActive(false);
         foreach (var targetModel in targetModels)
         {
@@ -91,6 +40,58 @@ public class ModelController : MonoBehaviour
             var size = immersalData.chosenImmersalManager.immersalModelManager[0].modelSize;
             child.localScale = Vector3.one * size;
         }
+
+    }
+    void Update()
+    {
+        int q = m_Sdk.TrackingStatus?.TrackingQuality ?? 0;
+        if (checkedXRMap)
+        {
+            switch (q)
+            {
+                case 0:
+                    // if (activeSW)
+                    // {
+                    // children.transform.SetParent(xrMap.transform);
+                    children.SetActive(false);
+                    //     activeSW = false;
+                    // }
+                    break;
+                case 1:
+                    // if (activeSW)
+                    // {
+                    // children.transform.SetParent(xrMap.transform);
+                    children.SetActive(false);
+                    //     activeSW = false;
+                    // }
+                    break;
+                case 2:
+                    // if (!activeSW)
+                    // {
+                    // children.transform.parent = null;
+                    children.SetActive(true);
+                    activeSW = true;
+                    // }
+                    break;
+                default:
+                    // if (!activeSW)
+                    // {
+                    // children.transform.parent = null;
+                    children.SetActive(true);
+                    activeSW = true;
+                    // }
+                    break;
+            }
+            return;
+        }
+        xrMap = GameObject.FindWithTag("XRMap");
+        if (xrMap == null)
+        {
+            return;
+        }
+        var parent = xrMap.transform;
+        children.transform.SetParent(parent);
+
         // child.SetParent(parent);
         checkedXRMap = true;
     }

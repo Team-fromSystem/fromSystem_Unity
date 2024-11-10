@@ -118,9 +118,6 @@ public class CheckLocation : MonoBehaviour
 
     private IEnumerator LoadNextSceneAsync(string sceneName)
     {
-        // 前のロードシーンをアンロード
-        SceneManager.UnloadSceneAsync("MainScene");
-
         // 次のシーンを非同期で読み込み
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;

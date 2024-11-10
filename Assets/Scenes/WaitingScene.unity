@@ -373,7 +373,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planeTrackingData: {fileID: 11400000, guid: c634425ada20a489f88f25e2cf2900d7, type: 2}
-  firebaseController: {fileID: 1775230990}
 --- !u!1 &499212602
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +467,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1671533381}
+  - {fileID: 864544161}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -511,7 +510,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &659799585
 MonoBehaviour:
@@ -533,7 +532,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: ModelDownload
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -747,6 +746,42 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &864544160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 864544161}
+  m_Layer: 5
+  m_Name: ModelDownloadButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &864544161
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864544160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1671533381}
+  m_Father: {fileID: 499212606}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1209010629
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,18 +876,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671533380}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 659799584}
-  m_Father: {fileID: 499212606}
+  m_Father: {fileID: 864544161}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1671533382
 MonoBehaviour:
@@ -900,7 +935,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1775230989}
         m_TargetAssemblyTypeName: Waiting, Assembly-CSharp
-        m_MethodName: StartAR
+        m_MethodName: FileLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1000,12 +1035,12 @@ MonoBehaviour:
   modelData: {fileID: 11400000, guid: 5a62169d268fe43468f341552acb83a7, type: 2}
   immersalMocks:
   - location:
-      latitude: 33.702478
+      latitude: 33.8339896
       longitude: 135.4010385
       altitude: 0
-    radius: 0.1
+    radius: 100
     immersalMapManager:
-    - mapID: 111295
+    - mapID: 112975
       mapPosition:
         X: 0
         Y: 0
@@ -1015,42 +1050,42 @@ MonoBehaviour:
         Y: 0
         Z: 0
     immersalModelManager:
-    - modelID: 1
-      modelSize: 1
+    - modelID: 7
+      modelSize: 0.2
       modelPosition:
-        X: 0
-        Y: 0
-        Z: 0
+        X: -0.522
+        Y: -0.015
+        Z: -0.148
       modelRotation:
         X: 0
-        Y: 0
+        Y: 39.696
         Z: 0
   imageTrackingMocks:
   - imageID: 1
     modelID: 1
-    modelSize: 1
+    modelSize: 0.2
     modelPosition:
       X: 0
-      Y: 0
+      Y: 0.02
       Z: 0
     modelRotation:
       X: 0
-      Y: 0
+      Y: 90
       Z: 0
   - imageID: 2
-    modelID: 2
-    modelSize: 1
+    modelID: 3
+    modelSize: 0.2
     modelPosition:
       X: 0
-      Y: 0
+      Y: 0.02
       Z: 0
     modelRotation:
       X: 0
-      Y: 0
+      Y: 90
       Z: 0
   planeTrackingMock:
-    mainModelID: 020000000300000006000000
-    decorationModelID: 010000000400000005000000
+    mainModelID: 01000000020000000300000007000000
+    decorationModelID: 040000000500000006000000
   imageMocks:
   - imageID: 1
     image: {fileID: 2800000, guid: e49910ecd974f42cc9535b97bb3c433f, type: 3}
@@ -1058,14 +1093,14 @@ MonoBehaviour:
     image: {fileID: 2800000, guid: a16b80590a9754e91aa3ac5f4db2a24f, type: 3}
   modelMocks:
   - modelID: 1
-    modelName: Cube1
-    model: {fileID: 4532038664921620774, guid: ace2e3f6ac578469f8ad061a0405bab5, type: 3}
+    modelName: "\u305E\u3093\u5B50"
+    model: {fileID: 989867573127347884, guid: c6bbc4a9b803a4f46b96310454689dff, type: 3}
   - modelID: 2
-    modelName: Sphere1
-    model: {fileID: 3826057803523595519, guid: a421f54ac90334b9fb93a4ac7ef651b7, type: 3}
+    modelName: "Unity\u3061\u3083\u3093"
+    model: {fileID: 100338, guid: 49f2055d53eeb4e5a92af590a44bddee, type: 3}
   - modelID: 3
-    modelName: Cube
-    model: {fileID: 1898129886894184065, guid: cf01de066b9ad4ce7b9c79bd9478c1f7, type: 3}
+    modelName: "\u305A\u3093\u3060\u3082\u3093"
+    model: {fileID: 3184030900844755601, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
   - modelID: 4
     modelName: Capsule
     model: {fileID: 3689525849096750569, guid: e09a5fd9f66394e4da92041e7312b76a, type: 3}
@@ -1075,9 +1110,11 @@ MonoBehaviour:
   - modelID: 6
     modelName: Sphere
     model: {fileID: 3386759339556426011, guid: 369d4e1fb90de49edb4fa117ace19aee, type: 3}
-  buttonCanvas: {fileID: 499212605}
+  - modelID: 7
+    modelName: Binah
+    model: {fileID: 5109355315078544871, guid: 8bcc1ff72412142f6894e1a323e782d3, type: 3}
+  modelLoadButton: {fileID: 864544160}
   debugText: {fileID: 301683216}
-  firebaseController: {fileID: 1775230990}
 --- !u!114 &1775230990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1090,8 +1127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185659c1926244157853fef0c445564f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataSt: 
-  imageTrackingList: []
 --- !u!1 &2117155026
 GameObject:
   m_ObjectHideFlags: 0

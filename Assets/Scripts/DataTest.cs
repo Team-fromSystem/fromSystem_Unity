@@ -10,7 +10,7 @@ public class DataTest : MonoBehaviour
     // [SerializeField] VpsStarter vpsStarter;
     TextMeshProUGUI debugText;
     [SerializeField] private PlaneTrackingData planeTrackingData; 
-    [SerializeField] private FirebaseController firebaseController;
+    // [SerializeField] private FirebaseController firebaseController;
 
     // [SerializeField] LocalizeChecker localizeChecker;
 
@@ -27,9 +27,9 @@ public class DataTest : MonoBehaviour
     //     debugText.text=$"{firstID}";
     // }
 
-    void Update(){
-            debugText.text=firebaseController.dataSt;
-    }
+    // void Update(){
+    //         debugText.text=firebaseController.dataSt;
+    // }
 
     // void Update()
     // {
