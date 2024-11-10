@@ -11,6 +11,18 @@ public class ScreenCapture : MonoBehaviour
     [SerializeField] private RawImage rawImage;
 
     [SerializeField] private GameObject rawImageObj;
+
+    [SerializeField] private Texture2D screenShot;
+
+    public Texture2D ScreenShot{
+        get{
+            return screenShot;
+        }
+        set{
+            screenShot=value;
+        }
+    }
+
     public void TakeScreenshot()
     {
         // スクショ用の、ARカメラ描画結果を格納するRenderTextureを用意する
@@ -25,7 +37,7 @@ public class ScreenCapture : MonoBehaviour
         // RenderTextureのままでは保存できないので、Textureに変換する
         RenderTexture prevActive = RenderTexture.active;
         RenderTexture.active = rt;
-        Texture2D screenShot = new Texture2D(_captureCamera.pixelWidth, _captureCamera.pixelHeight, TextureFormat.ARGB32, false);
+        screenShot = new Texture2D(_captureCamera.pixelWidth, _captureCamera.pixelHeight, TextureFormat.ARGB32, false);
         screenShot.ReadPixels(new Rect(0, 0, screenShot.width, screenShot.height), 0, 0, false);
         screenShot.Apply();
         // RawImage imageTarget = rawImage.GetComponent<RawImage>();
@@ -35,24 +47,25 @@ public class ScreenCapture : MonoBehaviour
         rawImage.rectTransform.sizeDelta = new Vector2(imageHeight * rate, imageHeight);
         rawImageObj.SetActive(true);
 
-        // try
-        // {
-        //     string timestamp = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
+        try
+        {
+            string timestamp = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
 
-        //     NativeGallery.Permission permission = NativeGallery.SaveImageToGallery(screenShot, "ShreenshotSample", $"screenshot_{timestamp}.jpg", (success, path) =>
-        //     {
-        //         // 保存終了時のコールバック
-        //     });
-        // }
-        // catch (IOException e)
-        // {
-        //     // 保存時エラーが出た時の処理を記述
-        // }
-        // finally
-        // {
-        // 最後にARカメラの描画先をスクリーンに戻す
-        RenderTexture.ReleaseTemporary(rt);
-        RenderTexture.active = prevActive;
-        // }
+            NativeGallery.Permission permission = NativeGallery.SaveImageToGallery(screenShot, "ShreenshotSample", $"screenshot_{timestamp}.jpg", (success, path) =>
+            {
+                // 保存終了時のコールバック
+                Debug.Log("保存完了");
+            });
+        }
+        catch (IOException e)
+        {
+            // 保存時エラーが出た時の処理を記述
+        }
+        finally
+        {
+            // 最後にARカメラの描画先をスクリーンに戻す
+            RenderTexture.ReleaseTemporary(rt);
+            RenderTexture.active = prevActive;
+        }
     }
 }

@@ -12,12 +12,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31379e970174a4c0eb357917183d3508, type: 3}
   m_Name: New Immersal Data
   m_EditorClassIdentifier: 
-  immersalManagers: []
+  immersalManagers:
+  - location:
+      latitude: 33.8339896
+      longitude: 135.4010385
+      altitude: 0
+    radius: 100
+    immersalMapManager:
+    - mapID: 112947
+      mapPosition:
+        X: 0
+        Y: 0
+        Z: 0
+      mapRotation:
+        X: 0
+        Y: 0
+        Z: 0
+    immersalModelManager:
+    - modelID: 2
+      modelSize: 1
+      modelPosition:
+        X: -1.388
+        Y: -1.205
+        Z: -0.098
+      modelRotation:
+        X: 0
+        Y: 90
+        Z: 0
   chosenImmersalManager:
     location:
       latitude: 0
       longitude: 0
       altitude: 0
     radius: 0
-    immersalMapManager: []
-    immersalModelManager: []
+    immersalMapManager:
+    - mapID: 112947
+      mapPosition:
+        X: 0
+        Y: 0
+        Z: 0
+      mapRotation:
+        X: 0
+        Y: 0
+        Z: 0
+    immersalModelManager:
+    - modelID: 2
+      modelSize: 1
+      modelPosition:
+        X: 0
+        Y: 0
+        Z: 0
+      modelRotation:
+        X: 0
+        Y: 0
+        Z: 0
