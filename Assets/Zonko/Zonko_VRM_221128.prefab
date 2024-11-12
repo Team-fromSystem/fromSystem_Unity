@@ -778,6 +778,7 @@ GameObject:
   - component: {fileID: 8698198111953887030}
   - component: {fileID: 8697147923604767691}
   - component: {fileID: -7630686600736496316}
+  - component: {fileID: -1563540464265541287}
   m_Layer: 0
   m_Name: Zonko_VRM_221128
   m_TagString: Untagged
@@ -1240,6 +1241,21 @@ MonoBehaviour:
   m_timeHold: 0
   planeCreateModel: {fileID: 0}
 --- !u!114 &-7630686600736496316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989867573127347884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089141aa0c800426eb0f42a320f8230e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ClickHoldTime: 0.1
+  m_timeHold: 0
+  planeCreateModel: {fileID: 0}
+--- !u!114 &-1563540464265541287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

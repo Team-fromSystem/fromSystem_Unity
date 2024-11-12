@@ -1040,7 +1040,7 @@ MonoBehaviour:
       altitude: 0
     radius: 100
     immersalMapManager:
-    - mapID: 112975
+    - mapID: 112982
       mapPosition:
         X: 0
         Y: 0
@@ -1050,15 +1050,15 @@ MonoBehaviour:
         Y: 0
         Z: 0
     immersalModelManager:
-    - modelID: 7
-      modelSize: 0.2
+    - modelID: 4
+      modelSize: 1
       modelPosition:
-        X: -0.522
-        Y: -0.015
-        Z: -0.148
+        X: -1.365
+        Y: -1.332
+        Z: -0.446
       modelRotation:
         X: 0
-        Y: 39.696
+        Y: 54.04
         Z: 0
   imageTrackingMocks:
   - imageID: 1
@@ -1084,8 +1084,8 @@ MonoBehaviour:
       Y: 90
       Z: 0
   planeTrackingMock:
-    mainModelID: 01000000020000000300000007000000
-    decorationModelID: 040000000500000006000000
+    mainModelID: 01000000020000000300000004000000
+    decorationModelID: 080000000d0000000e0000000f000000
   imageMocks:
   - imageID: 1
     image: {fileID: 2800000, guid: e49910ecd974f42cc9535b97bb3c433f, type: 3}
@@ -1102,17 +1102,41 @@ MonoBehaviour:
     modelName: "\u305A\u3093\u3060\u3082\u3093"
     model: {fileID: 3184030900844755601, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
   - modelID: 4
-    modelName: Capsule
-    model: {fileID: 3689525849096750569, guid: e09a5fd9f66394e4da92041e7312b76a, type: 3}
-  - modelID: 5
-    modelName: Cylinder
-    model: {fileID: 8407925402323317476, guid: 58c165a617522427f8524e5d71623d06, type: 3}
-  - modelID: 6
-    modelName: Sphere
-    model: {fileID: 3386759339556426011, guid: 369d4e1fb90de49edb4fa117ace19aee, type: 3}
-  - modelID: 7
     modelName: Binah
     model: {fileID: 5109355315078544871, guid: 8bcc1ff72412142f6894e1a323e782d3, type: 3}
+  - modelID: 5
+    modelName: "\u30A8\u30D5\u30A7\u30AF\u30C8(\u91D1\u6728\u7280)"
+    model: {fileID: 3435932940001684634, guid: 7dd4cc8813aa74ec6b9118d5b69b47e2, type: 3}
+  - modelID: 6
+    modelName: "\u91D1\u6728\u7280"
+    model: {fileID: 1184587509296212074, guid: 9c0b1952803ae49e3ad00fc715188262, type: 3}
+  - modelID: 7
+    modelName: "\u8776"
+    model: {fileID: 4255075657622090499, guid: cc2f045a35bdb434b80577521d366f42, type: 3}
+  - modelID: 8
+    modelName: "\u72AC"
+    model: {fileID: 1248903573221912772, guid: fcee245a002344a0e8e793b7adba4f33, type: 3}
+  - modelID: 9
+    modelName: "\u7D50\u6676"
+    model: {fileID: 2384574712071522018, guid: c77e04bef10ca4ae2a97d059ea823b23, type: 3}
+  - modelID: 10
+    modelName: "\u30B5\u30F3\u30B0\u30E9\u30B9"
+    model: {fileID: 2540041901144704252, guid: 7612e70bb3e424153ada1826a83c6d04, type: 3}
+  - modelID: 11
+    modelName: "\u9B54\u5973\u306E\u5E3D\u5B50(\u8D64)"
+    model: {fileID: 8929947140078599778, guid: 2a8c13a2783f945f5968a7d1164e2eeb, type: 3}
+  - modelID: 12
+    modelName: "\u9B54\u5973\u306E\u5E3D\u5B50(\u9ED2)"
+    model: {fileID: 8009212464466655756, guid: 0b3f999a0674d4cf58b8e901e4614aed, type: 3}
+  - modelID: 13
+    modelName: "\u30DC\u30FC\u30EB"
+    model: {fileID: 3386759339556426011, guid: 369d4e1fb90de49edb4fa117ace19aee, type: 3}
+  - modelID: 14
+    modelName: "\u30AB\u30D7\u30BB\u30EB"
+    model: {fileID: 3689525849096750569, guid: e09a5fd9f66394e4da92041e7312b76a, type: 3}
+  - modelID: 15
+    modelName: "\u30AD\u30E5\u30FC\u30D6"
+    model: {fileID: 1898129886894184065, guid: cf01de066b9ad4ce7b9c79bd9478c1f7, type: 3}
   modelLoadButton: {fileID: 864544160}
   debugText: {fileID: 301683216}
 --- !u!114 &1775230990
