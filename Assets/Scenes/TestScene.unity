@@ -417,13 +417,74 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715514432}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6267f7f9f4a474ea0a4ec89a57c4dcd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   path: /Users/okusan/Downloads/ramina-ver4.0.vrm
   gameObject: {fileID: 0}
+--- !u!1001 &2122269233
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 28717942078340607, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3184030900844755601, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_Name
+      value: Zundamon(Human)_VRM_09
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653844814251191140, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 423fe15cba1bf4a31a44ea1274192267, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23fb53fc719fb4739beb3fef624ab706, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -431,3 +492,4 @@ SceneRoots:
   - {fileID: 1678897915}
   - {fileID: 290232899}
   - {fileID: 1715514433}
+  - {fileID: 2122269233}
