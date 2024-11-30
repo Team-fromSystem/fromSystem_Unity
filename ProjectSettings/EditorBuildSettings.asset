@@ -5,18 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WaitingScene.unity
     guid: 954fc1dcb506d433b9caa7e08c428c5f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: f08981d7d0e464d198021c3b8e686e60
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PlaneScene.unity
     guid: 89a383c231d7a447495d6f130a61ee02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MapDownloadSample.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/NewPlaneScene.unity
+    guid: 9c747037a33454533b89725f49ad1afa
   m_configObjects:
     Niantic.Lightship.AR.LightshipSettings: {fileID: 11400000, guid: 44138966f76d543368b28d88f062f4b2, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 073049892fd034d01ba85a0a187e576c, type: 2}

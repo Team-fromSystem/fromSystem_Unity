@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4b0be1d8fc34d4fbb84785f6f7a433, type: 3}
+  m_Name: Animators Data
+  m_EditorClassIdentifier: 
+  animatorsManager:
+  - name: WAIT
+    animatorState: 0
+    waitState: 0
+    poseState: 0
+    jumpState: 0
+  - name: WAIT01
+    animatorState: 1
+    waitState: 1
+    poseState: 0
+    jumpState: 0
+  - name: WAIT02
+    animatorState: 1
+    waitState: 2
+    poseState: 0
+    jumpState: 0
+  - name: WAIT03
+    animatorState: 1
+    waitState: 3
+    poseState: 0
+    jumpState: 0
+  - name: WAIT04
+    animatorState: 1
+    waitState: 4
+    poseState: 0
+    jumpState: 0
+  - name: POSE01
+    animatorState: 2
+    waitState: 0
+    poseState: 1
+    jumpState: 0
+  - name: POSE02
+    animatorState: 2
+    waitState: 0
+    poseState: 2
+    jumpState: 0
+  - name: POSE03
+    animatorState: 2
+    waitState: 0
+    poseState: 3
+    jumpState: 0
+  - name: POSE04
+    animatorState: 2
+    waitState: 0
+    poseState: 4
+    jumpState: 0
+  - name: JUMP00
+    animatorState: 3
+    waitState: 0
+    poseState: 0
+    jumpState: 1
+  - name: JUMP01
+    animatorState: 3
+    waitState: 0
+    poseState: 0
+    jumpState: 2

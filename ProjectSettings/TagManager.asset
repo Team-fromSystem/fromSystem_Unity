@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - XRMap
+  - ModelListView
+  - ChoseButton
   layers:
   - Default
   - TransparentFX
