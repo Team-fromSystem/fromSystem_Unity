@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.brogan89.screenswipe": {
+      "version": "https://github.com/brogan89/ScreenSwipe.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "63d7c43b8bad641d29b48f1df154584545983a2f"
+    },
     "com.immersal.core": {
       "version": "https://github.com/immersal/imdk-unity.git",
       "depth": 0,
@@ -388,6 +395,15 @@
       "source": "git",
       "dependencies": {},
       "hash": "4d27475bed66d56aca8b7d585b98fe503525e593"
+    },
+    "me.qiankanglai.loopscrollrect": {
+      "version": "https://github.com/qiankanglai/LoopScrollRect.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      },
+      "hash": "ed00b083a02b76091fd946d79b2b3ab6d3f2721f"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b494e2e6574543e5856164076325f84, type: 3}
+  m_Name: MainModelData
+  m_EditorClassIdentifier: 
+  modelManagers:
+  - modelID: 1
+    modelName: Binah
+    model: {fileID: 5109355315078544871, guid: 8bcc1ff72412142f6894e1a323e782d3, type: 3}
+  - modelID: 2
+    modelName: "Unity\u3061\u3083\u3093"
+    model: {fileID: 100338, guid: 49f2055d53eeb4e5a92af590a44bddee, type: 3}
