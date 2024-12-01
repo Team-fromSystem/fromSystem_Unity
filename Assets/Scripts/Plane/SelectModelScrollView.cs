@@ -13,6 +13,7 @@ public sealed class SelectModelScrollView : MonoBehaviour, LoopScrollPrefabSourc
     [SerializeField] private bool isEvent = false;
     [SerializeField] private bool isMM = false;
     [SerializeField] private PlaneTrackingData planeTrackingData;
+    [SerializeField] private ModelSingleton modelSingleton;
     private List<ModelManager> eventModelList = new List<ModelManager>();
 
     public int totalCount = -1;
@@ -24,11 +25,13 @@ public sealed class SelectModelScrollView : MonoBehaviour, LoopScrollPrefabSourc
         {
             return;
         }
+        var singletonGO=GameObject.FindWithTag("Singleton");
+        modelSingleton=singletonGO.GetComponent<ModelSingleton>();
         if (isMM)
         {
             foreach (var id in planeTrackingData.planeTrackingManager.mainModelID)
             {
-                var oneData = modelData.modelManagers.Find((x) => x.modelID == id);
+                var oneData = modelSingleton.modelData.Find((x) => x.modelID == id);
                 eventModelList.Add(oneData);
             }
         }
@@ -36,7 +39,7 @@ public sealed class SelectModelScrollView : MonoBehaviour, LoopScrollPrefabSourc
         {
             foreach (var id in planeTrackingData.planeTrackingManager.decorationModelID)
             {
-                var oneData = modelData.modelManagers.Find((x) => x.modelID == id);
+                var oneData = modelSingleton.modelData.Find((x) => x.modelID == id);
                 eventModelList.Add(oneData);
             }
         }

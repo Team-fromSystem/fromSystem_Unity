@@ -14,12 +14,16 @@ public class MainSceneStarter : MonoBehaviour
     [SerializeField] private ARSession aRSession;
 
     [SerializeField] private ImageTrackingData imageTrackingData;
-    [SerializeField] private ImageData imageData;
-    [SerializeField] private ModelData modelData;
+
     [SerializeField] private PlaneTrackingData planeTrackingData;
+    [SerializeField] private ModelSingleton modelSingleton;
+    [SerializeField] private ImageSingleton imageSingleton;
 
     void Awake()
     {
+        var singletonGO=GameObject.FindWithTag("Singleton");
+        imageSingleton=singletonGO.GetComponent<ImageSingleton>();
+        modelSingleton=singletonGO.GetComponent<ModelSingleton>();
         StartCoroutine(WaitForARSession());
     }
 
@@ -53,14 +57,14 @@ public class MainSceneStarter : MonoBehaviour
         if (aRTrackedImageManager.referenceLibrary is MutableRuntimeReferenceImageLibrary mutableLibrary)
         {
             onTracked = "AddImage";
-            if (imageTrackingData.imageTrackingManagers.Count == 0)
+            if (imageSingleton.imageData.Count==0)
             {
                 onTracked = "Can't use this image";
                 yield break;
             }
-            foreach (var trackingData in imageTrackingData.imageTrackingManagers)
+            foreach (var trackingData in imageSingleton.imageData)
             {
-                ImageManager image = imageData.imageManagers.Find(n => n.imageID == trackingData.imageID);
+                ImageManager image = imageSingleton.imageData.Find(n => n.imageID == trackingData.imageID);
                 onTracked = $"{image.imageID}";
                 var addImage = CreateReadableTexture2D(image.image);
                 mutableLibrary.ScheduleAddImageWithValidationJob(
@@ -103,7 +107,7 @@ public class MainSceneStarter : MonoBehaviour
             var name = trackedImage.referenceImage.name;
             // マーカー名とプレハブのマッピングからプレハブを取得
             var model = imageTrackingData.imageTrackingManagers.Find(x => $"{x.imageID}" == name);
-            var prefab = modelData.modelManagers.Find(x => x.modelID == model.modelID)?.model;
+            var prefab = modelSingleton.modelData.Find(x => x.modelID == model.modelID)?.model;
             if (prefab != null)
             {
                 // ARTrackedImageのTransformの位置を少し上に調整
@@ -188,7 +192,7 @@ public class MainSceneStarter : MonoBehaviour
 
     public void ChangeScene()
     {
-        StartCoroutine(LoadNextSceneAsync("PlaneScene"));
+        StartCoroutine(LoadNextSceneAsync("NewPlaneScene"));
     }
 
     private IEnumerator LoadNextSceneAsync(string sceneName)

@@ -30,10 +30,11 @@ public class CreateModelController : MonoBehaviour
     [SerializeField] private bool isSS = false;
     [SerializeField] private Canvas mainCanvas;
     [SerializeField] private Canvas SSCanvas;
+    [SerializeField] private RuntimeAnimatorController animatorController;
 
     void Update()
     {
-        if (Input.touchCount == 0 || Input.GetTouch(0).phase != TouchPhase.Ended||mainCanvas.enabled==false)
+        if (Input.touchCount == 0 || Input.GetTouch(0).phase != TouchPhase.Ended || mainCanvas.enabled == false)
         {
             return;
         }
@@ -91,11 +92,21 @@ public class CreateModelController : MonoBehaviour
         Vector3 direction = cameraTransform.position - go.transform.position;
         go.transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0.0f, direction.z));
         // GameObject go = Instantiate(chosedModelObject, new Vector3(660, 526, 6), Quaternion.identity);
+        if (go.TryGetComponent<Animator>(out Animator animator))
+        {
+            if (animator.isHuman)
+            {
+                if(animator.runtimeAnimatorController==null){
+                    animator.runtimeAnimatorController=animatorController;
+                }
+            }
+        }
         var comp = go.AddComponent<ClickObject>();
         comp.settingModelController = this.settingModelController;
         go.AddComponent<ColliderVisualizer>();
         var DO = go.AddComponent<DraggingObject>();
         DO.settingModelController = this.settingModelController;
+        go.SetActive(true);
         objectList.Add(go);
     }
 

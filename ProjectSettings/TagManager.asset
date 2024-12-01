@@ -7,6 +7,7 @@ TagManager:
   - XRMap
   - ModelListView
   - ChoseButton
+  - Singleton
   layers:
   - Default
   - TransparentFX

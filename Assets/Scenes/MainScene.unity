@@ -1816,6 +1816,97 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658824596}
   m_CullTransparentMesh: 1
+--- !u!1001 &750189178
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1489667403079852117, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: modelData.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930630902428261575, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: imageData.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485163518341542953, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585517048905984349, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_Name
+      value: Singleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585517048905984349, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+      propertyPath: m_TagString
+      value: Singleton
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+--- !u!114 &750189179 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2930630902428261575, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+  m_PrefabInstance: {fileID: 750189178}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6467f0df05988461088c99392663cc5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &750189180 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1489667403079852117, guid: 3c0a0f40104e340f2996ee5f6142644a, type: 3}
+  m_PrefabInstance: {fileID: 750189178}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96eac77168d9b485ca6edf3eb99cd05c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &761878169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,9 +2129,9 @@ MonoBehaviour:
   aRTrackedImageManager: {fileID: 833164543}
   aRSession: {fileID: 83009582}
   imageTrackingData: {fileID: 11400000, guid: a42cf773d5a8147cdbfd5a56f2fa562d, type: 2}
-  imageData: {fileID: 11400000, guid: 040fa25b55f62474f9eaedaf1e63411e, type: 2}
-  modelData: {fileID: 11400000, guid: 5a62169d268fe43468f341552acb83a7, type: 2}
   planeTrackingData: {fileID: 11400000, guid: c634425ada20a489f88f25e2cf2900d7, type: 2}
+  modelSingleton: {fileID: 750189180}
+  imageSingleton: {fileID: 750189179}
 --- !u!114 &833164545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5325,3 +5416,4 @@ SceneRoots:
   - {fileID: 112770954}
   - {fileID: 1081179594}
   - {fileID: 150420506}
+  - {fileID: 750189178}
