@@ -6,7 +6,7 @@ using Immersal.REST;
 using Immersal;
 public class ModelController : MonoBehaviour
 {
-    [SerializeField] private ModelData modelData;
+    [SerializeField] private ModelSingleton modelSingleton;
     [SerializeField] private ImmersalData immersalData;
     [SerializeField] private PlaneTrackingData planeTrackingData;
     [SerializeField] private ImageTrackingData imageTrackingData;
@@ -22,11 +22,13 @@ public class ModelController : MonoBehaviour
     // Update is called once per frame
     void Awake()
     {
+        var singletonGO=GameObject.FindWithTag("Singleton");
+        modelSingleton=singletonGO.GetComponent<ModelSingleton>();
         m_Sdk = ImmersalSDK.Instance;
         foreach (var modelManager in immersalData.chosenImmersalManager.immersalModelManager)
         {
             targetModelsManagers.Add(modelManager);
-            targetModels.Add(modelData.modelManagers.Find(x => x.modelID == modelManager.modelID));
+            targetModels.Add(modelSingleton.modelData.Find(x => x.modelID == modelManager.modelID));
         }
         children = new GameObject("Children");
         children.SetActive(false);

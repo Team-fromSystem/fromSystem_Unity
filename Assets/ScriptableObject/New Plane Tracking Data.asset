@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: New Plane Tracking Data
   m_EditorClassIdentifier: 
   planeTrackingManager:
-    mainModelID: 000000000100000002000000
-    decorationModelID: 030000000400000005000000
+    mainModelID: 0100000002000000
+    decorationModelID: 

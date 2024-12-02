@@ -7,39 +7,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:794023833100:android:42e86d4e94549ba8380829",
+        "mobilesdk_app_id": "1:794023833100:ios:cc5020e241ed01af380829",
         "android_client_info": {
-          "package_name": "com.example.memoria"
+          "package_name": "com.fromSystem.ARfromSystem-Unity"
         }
       },
-      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBRR3HbVWpQyOjxWO1xZPpTGz4ir12B0ms"
+          "current_key": "AIzaSyBdZmN2V1MXs89N_uV3vu6F_a4ACV0OT6c"
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 0
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:794023833100:android:9f3afcd4d6d7cc4e380829",
-        "android_client_info": {
-          "package_name": "com.fromSystem.ARfromSystem_Unity"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBRR3HbVWpQyOjxWO1xZPpTGz4ir12B0ms"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "status": 1
         }
       }
     }
